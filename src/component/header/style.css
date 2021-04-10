@@ -1,0 +1,80 @@
+.navbar-bg{
+    background-color: #4c5c78 !important;
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100000;
+    padding: 1rem 5rem;
+}
+.navlogo{
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: #e2edf7 !important;
+}
+.navtags{
+    text-decoration: none;
+    margin: 0 1rem;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    font-weight: 400;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #e1eaf1 !important;
+    border-bottom: 1px solid transparent;
+}
+.nav_active{
+    border-bottom: 1px solid #0770d3;
+}
+.register-li{
+    background-color: #404b55;
+}
+.register-li a{
+    color: #f4f4f5 !important;
+}
+@media only screen and (max-width: 500px){
+    .header{
+        padding: 0;
+    }
+    .custom-toggler.navbar-toggler {
+        background-color: #404b55;
+    }
+    .navbar-bg{
+    padding: 1rem 1rem;
+    }
+}
+
+.drop-div{ 
+    cursor: pointer;
+    text-align: center;
+    background-color: #4c5c78;
+    transition: all 0.3s;
+    color: #e1eaf1 !important;
+}
+.drop-div:hover{ 
+    background-color: #4c5c78;
+    color: #e1eaf1 !important;
+}
+.drop-lbl{
+    color: #4c5c78 !important;
+    text-align: left;
+    transition: all 0.3s;
+}
+.drop-lbl span {
+    padding: 1rem;
+}
+.drop-lbl:hover{
+    transform: translateX(1rem);
+    background-color: #4c5c78;
+    color: #ffffff !important;
+}
+.link2{
+    cursor: pointer;
+    transition: all 0.3s;
+    border-left: 1px solid #4c5c78;
+
+}
+.link2:hover{
+    border-left: 1px solid #6b7b97;
+}

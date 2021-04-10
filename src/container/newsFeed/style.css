@@ -1,0 +1,48 @@
+.newsfeed_main_div{
+    width: 100%;
+    height: 90vh;
+    padding: 0 5rem;
+    background-color: #edeff1;
+}
+.sub_newsfeed{
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    padding-top: 5vh;
+}
+.left-div{
+    width: 25%;
+    height: 80vh;
+    margin-right: 2.5%;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+}
+.middle-div{
+    width: 40%;
+    height: 80vh;
+    margin-right: 2.5%;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+
+}
+.right-div{
+    width: 30%;
+    height: 80vh;
+    background-color: #ffffff;
+    border-radius: 12px;
+}
+.sub1-right-div{
+    width: 100%;
+    height: 80%; /* Can be use auto for inifinte scroll*/
+    padding: 8%;
+}
+.create_post_lbl{
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    color: #404b55;
+}
+.inpt-post{
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+    font-size: 10px;
+}
