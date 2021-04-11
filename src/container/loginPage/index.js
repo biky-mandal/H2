@@ -7,6 +7,8 @@ import './style.css';
 import {LoginAction} from '../../actions/authAction'
 import { useDispatch, useSelector } from 'react-redux';
 import {Redirect} from 'react-router-dom';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+
 /**
 * @author
 * @function Loginpage
@@ -41,19 +43,25 @@ const Loginpage = (props) => {
                             <Container>
                                 <Row style={{  }}>
                                     <Col md={{ span: 10 , offset: 1}}>
-                                        <Form onSubmit={userLogin}>
-                                            <Input 
+                                        <ValidatorForm useref="form" onSubmit={userLogin}>
+                                            <TextValidator 
                                                 className="inpt-lbl"
                                                 placeholder="Enter Email"
                                                 value={userEmail}
                                                 type="email"
+                                                variant = "outlined"
+                                                validators={['required', 'matchRegexp:^([a-zA-Z0-9]+(?:[.-]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:[.-]?[a-zA-Z0-9]+)*\.[a-zA-Z]{2,7})$']}
+                                                errorMessages={['this field is required', 'Email is not valid']}
                                                 onChange={(e) => setUserEmail(e.target.value)}
-                                            />                                                            
-                                            <Input 
+                                            />                                                      
+                                            <TextValidator 
                                                 className="inpt-lbl"
                                                 placeholder="Enter Password"
                                                 value={userPassword}
                                                 type="text"
+                                                variant = "outlined"
+                                                validators={['required', 'minStringLength:8']}
+                                                errorMessages={['this field is required', 'Minimum Length should be 8']}
                                                 onChange={(e) => setUserPassword(e.target.value)}
                                             />
                                             <label className="tandc">
@@ -63,7 +71,7 @@ const Loginpage = (props) => {
                                             <button className="register-btn">
                                                 Login
                                             </button>
-                                        </Form>
+                                        </ValidatorForm>
                                     </Col>
                                 </Row>
                             </Container>

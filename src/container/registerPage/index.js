@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row,Col, Container, Form } from 'react-bootstrap';
 import Layout from '../../component/layout';
 import Input from '../../component/UI';
@@ -7,6 +7,7 @@ import './style.css';
 import {RegisterAction} from '../../actions/authAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 /**
 * @author
@@ -20,6 +21,7 @@ const Registerpage = (props) => {
     const [userEmail, setUserEmail] = useState('');
     const [userPassword, setUserPassword] = useState('');
     const [userName, setUserName] = useState('');
+    const [userNumber, setUserNumber] = useState('');
 
     if(auth.authenticate){
         return <Redirect to={'/'} />
@@ -27,7 +29,7 @@ const Registerpage = (props) => {
 
     const registerUser = (e) => {
         e.preventDefault();
-        dispatch(RegisterAction(userEmail, userPassword, userName));  
+        dispatch(RegisterAction(userEmail, userPassword, userName));
     }
 
     return (
@@ -42,26 +44,45 @@ const Registerpage = (props) => {
                             <Container>
                                 <Row style={{  }}>
                                     <Col md={{ span: 10 , offset: 1}}>
-                                        <Form onSubmit={registerUser}>
-                                            <Input 
+                                        <ValidatorForm useref="form" onSubmit={registerUser}>
+                                            <TextValidator
                                                 className="inpt-lbl"
                                                 placeholder="Enter Full Name"
                                                 value={userName}
                                                 type="text"
+                                                variant = "outlined"
+                                                validators={['required', 'minStringLength:4']}
+                                                errorMessages={['this field is required', 'Minimum Length should be 4']}
                                                 onChange={(e) => setUserName(e.target.value)}
                                             />
-                                            <Input 
+                                            <TextValidator 
                                                 className="inpt-lbl"
                                                 placeholder="Enter Email"
                                                 value={userEmail}
                                                 type="email"
+                                                variant = "outlined"
+                                                validators={['required', 'matchRegexp:^([a-zA-Z0-9]+(?:[.-]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:[.-]?[a-zA-Z0-9]+)*\.[a-zA-Z]{2,7})$']}
+                                                errorMessages={['this field is required', 'Email is not valid']}
                                                 onChange={(e) => setUserEmail(e.target.value)}
-                                            />                                
-                                            <Input 
+                                            />
+                                            <TextValidator 
+                                                className="inpt-lbl"
+                                                placeholder="Enter Phone Number"
+                                                value={userNumber}
+                                                type="text"
+                                                variant = "outlined"
+                                                validators={['required', 'matchRegexp:^[1-9]{1}[0-9]{9}$']}
+                                                errorMessages={['this field is required', 'Phone Number is not valid']}
+                                                onChange={(e) => setUserNumber(e.target.value)}
+                                            />
+                                            <TextValidator 
                                                 className="inpt-lbl"
                                                 placeholder="Enter Password"
                                                 value={userPassword}
                                                 type="text"
+                                                variant = "outlined"
+                                                validators={['required', 'minStringLength:8']}
+                                                errorMessages={['this field is required', 'Minimum Length should be 8']}
                                                 onChange={(e) => setUserPassword(e.target.value)}
                                             />
                                             <label className="tandc">
@@ -71,7 +92,7 @@ const Registerpage = (props) => {
                                             <button className="register-btn">
                                                 Register
                                             </button>
-                                        </Form>
+                                        </ValidatorForm>
                                     </Col>
                                 </Row>
                             </Container>

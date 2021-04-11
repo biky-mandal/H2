@@ -10,7 +10,7 @@ import './style.css';
 const Homepage = (props) => {
     return (
         <Layout>
-            <div>Homepage</div>
+            <div>Hello World</div>
         </Layout>
     )
 
