@@ -2,9 +2,9 @@ import { authConstants } from '../store/constant';
 
 const initState = {
     token: null,
-    user: {
-
-    },
+    email: null,
+    displayName: null,
+    emailVerified: false,
     authenticate: false,
     authenticating: false,
     errorMessage: null,
@@ -26,8 +26,10 @@ export default (state = initState, action) => {
         case authConstants.LOGIN_SUCCESS:
             state = {
                 ...state,
-                user: action.payload.user,
                 token: action.payload.token,
+                email: action.payload.email,
+                displayName: action.payload.displayName,
+                emailVerified: action.payload.emailVerified,
                 authenticating: false,
                 authenticate: true,
                 loading: false
@@ -52,7 +54,9 @@ export default (state = initState, action) => {
         case authConstants.REGISTER_SUCCESS:
             state = {
                 ...state,
-                user: action.payload.user,
+                email: action.payload.email,
+                displayName: action.payload.displayName,
+                emailVerified: action.payload.emailVerified,
                 token: action.payload.token,
                 authenticating: false,
                 authenticate: true,

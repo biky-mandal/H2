@@ -15,10 +15,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
   const dispatch = useDispatch();
-  const auth = useSelector(state => state.auth)
+  const auth = useSelector(state => state.auth);
 
   useEffect(() => {
-    if(!auth.authenticate){
+    if(!auth.authenticate){ 
       dispatch(isUserLoggedIn());
     }
   })

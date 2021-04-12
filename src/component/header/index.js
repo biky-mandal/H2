@@ -3,8 +3,8 @@ import './style.css';
 import {NavDropdown, Navbar, Nav, Form, FormControl, Button} from 'react-bootstrap';
 import {NavLink} from 'react-router-dom';
 import {LogoutAction} from '../../actions/authAction';
-import { useDispatch } from 'react-redux';
-import { FiLogIn, FiUserPlus, FiBook, FiClipboard, FiBookOpen } from "react-icons/fi";
+import { useDispatch, useSelector } from 'react-redux';
+import { FiUserCheck, FiLogIn, FiUserPlus, FiBook, FiClipboard, FiBookOpen, FiLogOut } from "react-icons/fi";
 
 
 /**
@@ -14,8 +14,10 @@ import { FiLogIn, FiUserPlus, FiBook, FiClipboard, FiBookOpen } from "react-icon
 
 const Header = (props) => {
     const dispatch = useDispatch();
+    // const auth = useSelector(state => state.auth);
 
     const token = localStorage.getItem('token');
+    const displayName = localStorage.getItem('displayName');
 
     const logoutFunc = () => {
         dispatch(LogoutAction());
@@ -23,9 +25,17 @@ const Header = (props) => {
 
     const renderLoggedInLinks = () => {
         return(
-            <li className="nav-item">
-                <NavLink activeClassName="nav_active" to="/" onClick={logoutFunc} className="nav-link link2 navtags" >Logout</NavLink>
-            </li>
+            <NavDropdown className="profile-drop-div navtags link2" title={displayName ? displayName : 'User'} id="collasible-nav-dropdown">
+                <li className="nav-item">
+                    <NavLink to="profile" className="nav-link drop-lbl navtags"><span><FiUserCheck /></span>Profile</NavLink>
+                </li>
+                <li className="nav-item">
+                    <NavLink to="profile" className="nav-link drop-lbl navtags"><span><FiUserCheck /></span>Mates</NavLink>
+                </li>
+                <li className="nav-item">
+                    <NavLink to="/" onClick={logoutFunc} className="nav-link drop-lbl navtags"><span><FiLogOut /></span>LogOut</NavLink>
+                </li>
+            </NavDropdown>
         );
     }
 
@@ -52,7 +62,7 @@ const Header = (props) => {
                             <NavLink to="" className="nav-link link2 navtags" >Home</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink to="newsfeed" className="nav-link link2 navtags" >Newsfeed</NavLink>
+                            <NavLink to="newsfeed" className="nav-link link2 navtags" >feed</NavLink>
                         </li>
                         <NavDropdown className="drop-div navtags link2" title="Academics" id="collasible-nav-dropdown">
                             <li className="nav-item">

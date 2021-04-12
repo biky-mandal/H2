@@ -8,13 +8,19 @@ export const isUserLoggedIn = () => {
         const token = localStorage.getItem('token');
 
         if(token){
-            const user = firebaseApp.auth().currentUser
-            dispatch({
-                type: authConstants.LOGIN_SUCCESS,
-                payload: {
-                    token, user
-                }
-            });
+            await firebaseApp.auth()
+                .onAuthStateChanged((user) => {
+                    const email = user.email;
+                    const emailVerified = user.emailVerified;
+                    const displayName = user.displayName;
+    
+                    dispatch({
+                        type: authConstants.LOGIN_SUCCESS,
+                        payload: {
+                            token, email, emailVerified, displayName
+                        }
+                    });
+                })
         }
     }
 }
@@ -32,15 +38,28 @@ export const RegisterAction = (userEmail, userPassword, userName) => {
                 user.updateProfile({
                     displayName: userName
                 })
-                const token = user.getIdToken();
-                localStorage.setItem('token', token);
+                user.getIdToken().then((token) => {
 
-                dispatch({
-                    type: authConstants.REGISTER_SUCCESS,
-                    payload: {
-                        token, user
-                    }
-                })
+                    const email = user.email;
+                    const emailVerified = user.emailVerified;
+                    const displayName = user.displayName;
+
+                    localStorage.setItem('token', token);
+                    localStorage.setItem('email', email);
+                    localStorage.setItem('displayName', displayName);
+
+                    dispatch({
+                        type: authConstants.REGISTER_SUCCESS,
+                        payload: {
+                            token, email, emailVerified, displayName
+                        }
+                    })
+                }).catch((error) => {
+                    console.log(error);
+                    dispatch({
+                        type: authConstants.REGISTER_FAILURE
+                    })
+                });
             }
         })
         .catch((error) => {
@@ -63,15 +82,29 @@ export const LoginAction = (userEmail, userPassword) => {
         .then((userCredential) => {
             const user = userCredential.user;
             if(user){
-                const token = user.getIdToken();
-                localStorage.setItem('token', token);
+                user.getIdToken().then((token) => {
 
-                dispatch({
-                    type: authConstants.LOGIN_SUCCESS,
-                    payload: {
-                        token, user
-                    }
-                })
+                    const email = user.email;
+                    const emailVerified = user.emailVerified;
+                    const displayName = user.displayName;
+
+                    localStorage.setItem('token', token);
+                    localStorage.setItem('email', email);
+                    localStorage.setItem('displayName', displayName);
+
+
+                    dispatch({
+                        type: authConstants.LOGIN_SUCCESS,
+                        payload: {
+                            token, email, emailVerified, displayName
+                        }
+                    })
+                }).catch((error) => {
+                    console.log(error);
+                    dispatch({
+                        type: authConstants.LOGIN_FAILURE
+                    })
+                });
             }
         })
         .catch((error) => {
@@ -124,13 +157,22 @@ export const LoginWithGoogleAction = () => {
                 const token = credential.accessToken;
                 // The signed-in user info.
                 const user = result.user;
-                localStorage.setItem('token', token);
-                dispatch({
-                    type: authConstants.LOGIN_SUCCESS,
-                    payload: {
-                        user, token
-                    }
-                })
+                if(user){
+                    const email = user.email;
+                    const emailVerified = user.emailVerified;
+                    const displayName = user.displayName;
+
+                    localStorage.setItem('token', token);
+                    localStorage.setItem('email', email);
+                    localStorage.setItem('displayName', displayName);
+
+                    dispatch({
+                        type: authConstants.LOGIN_SUCCESS,
+                        payload: {
+                            token, email, emailVerified, displayName
+                        }
+                    })
+                }
             })
             .catch((error) => {
                 dispatch({
