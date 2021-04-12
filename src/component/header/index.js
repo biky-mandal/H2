@@ -3,8 +3,8 @@ import './style.css';
 import {NavDropdown, Navbar, Nav, Form, FormControl, Button} from 'react-bootstrap';
 import {NavLink} from 'react-router-dom';
 import {LogoutAction} from '../../actions/authAction';
-import { useDispatch, useSelector } from 'react-redux';
-import { FiUserCheck, FiLogIn, FiUserPlus, FiBook, FiClipboard, FiBookOpen, FiLogOut } from "react-icons/fi";
+import { useDispatch } from 'react-redux';
+import { FiUsers, FiUserCheck, FiLogIn, FiUserPlus, FiBook, FiClipboard, FiBookOpen, FiLogOut } from "react-icons/fi";
 
 
 /**
@@ -30,7 +30,7 @@ const Header = (props) => {
                     <NavLink to="profile" className="nav-link drop-lbl navtags"><span><FiUserCheck /></span>Profile</NavLink>
                 </li>
                 <li className="nav-item">
-                    <NavLink to="profile" className="nav-link drop-lbl navtags"><span><FiUserCheck /></span>Mates</NavLink>
+                    <NavLink to="profile" className="nav-link drop-lbl navtags"><span><FiUsers /></span>BatchMates</NavLink>
                 </li>
                 <li className="nav-item">
                     <NavLink to="/" onClick={logoutFunc} className="nav-link drop-lbl navtags"><span><FiLogOut /></span>LogOut</NavLink>
@@ -66,16 +66,16 @@ const Header = (props) => {
                         </li>
                         <NavDropdown className="drop-div navtags link2" title="Academics" id="collasible-nav-dropdown">
                             <li className="nav-item">
-                                <NavLink to="contact" className="nav-link drop-lbl navtags"><span><FiClipboard /></span>Notes</NavLink>
+                                <NavLink to="note" className="nav-link drop-lbl navtags"><span><FiClipboard /></span>Notes</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink to="about" className="nav-link drop-lbl navtags"><span><FiBook /></span>Books</NavLink>
+                                <NavLink to="book" className="nav-link drop-lbl navtags"><span><FiBook /></span>Books</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink to="about" className="nav-link drop-lbl navtags"><span><FiBookOpen /></span>Syllabus</NavLink>
+                                <NavLink to="syllabus" className="nav-link drop-lbl navtags"><span><FiBookOpen /></span>Syllabus</NavLink>
                             </li>
                         </NavDropdown>
-                        <NavDropdown className="drop-div navtags link2" title="FAQ" id="collasible-nav-dropdown">
+                        <NavDropdown className="drop-div navtags link2" title="GOIN" id="collasible-nav-dropdown">
                             <li className="nav-item">
                                 <NavLink to="contact" className="nav-link drop-lbl navtags"><span><FiLogIn /></span>Contact</NavLink>
                             </li>

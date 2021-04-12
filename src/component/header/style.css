@@ -5,7 +5,7 @@
     left: 0;
     right: 0;
     z-index: 100000;
-    padding: 1rem 5rem;
+    padding: 1rem 6rem;
 }
 .navlogo{
     font-family: 'Poppins', sans-serif;
@@ -60,9 +60,10 @@
     color: #4c5c78 !important;
     text-align: left;
     transition: all 0.3s;
+    margin-left: 0.5rem;
 }
 .drop-lbl span {
-    padding: 1rem;
+    padding-right: 0.5rem;
 }
 .drop-lbl:hover{
     transform: translateX(1rem);
@@ -77,4 +78,13 @@
 }
 .link2:hover{
     border-left: 1px solid #6b7b97;
+}
+
+.profile-drop-div{
+    width: 10rem !;
+    cursor: pointer;
+    text-align: center;
+    background-color: #4c5c78;
+    transition: all 0.3s;
+    color: #e1eaf1 !important;
 }
