@@ -1,0 +1,27 @@
+.or{
+    width: 100%;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    margin-top: 1rem;
+    text-transform: uppercase;
+}
+.google-login-btn{
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    text-align: center;
+    width: 100%;
+    height: 2.4rem;
+    outline: none;
+    border: none;
+    background-color: #f4f6f8 ;
+    color: #404b55;
+    box-shadow: 1px 1px 3px #44444470;
+}
+.google-login-btn span{
+    margin-left: 0.6rem;
+    text-align: left;
+    font-size: 0.8rem;
+}

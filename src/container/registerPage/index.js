@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
+
 /**
 * @author
 * @function Registerpage
@@ -43,11 +44,11 @@ const Registerpage = (props) => {
                             </label>
                             <Container>
                                 <Row style={{  }}>
-                                    <Col md={{ span: 10 , offset: 1}}>
-                                        <ValidatorForm useref="form" onSubmit={registerUser}>
+                                    <Col md={{ span: 10, offset: 1 }}>
+                                        <ValidatorForm className="form-reg" useref="form" onSubmit={registerUser}>
                                             <TextValidator
-                                                className="inpt-lbl"
-                                                placeholder="Enter Full Name"
+                                                className="input-field"
+                                                label="Full Name"
                                                 value={userName}
                                                 type="text"
                                                 variant = "outlined"
@@ -56,8 +57,8 @@ const Registerpage = (props) => {
                                                 onChange={(e) => setUserName(e.target.value)}
                                             />
                                             <TextValidator 
-                                                className="inpt-lbl"
-                                                placeholder="Enter Email"
+                                                className="input-field"
+                                                label="Email"
                                                 value={userEmail}
                                                 type="email"
                                                 variant = "outlined"
@@ -66,18 +67,8 @@ const Registerpage = (props) => {
                                                 onChange={(e) => setUserEmail(e.target.value)}
                                             />
                                             <TextValidator 
-                                                className="inpt-lbl"
-                                                placeholder="Enter Phone Number"
-                                                value={userNumber}
-                                                type="text"
-                                                variant = "outlined"
-                                                validators={['required', 'matchRegexp:^[1-9]{1}[0-9]{9}$']}
-                                                errorMessages={['this field is required', 'Phone Number is not valid']}
-                                                onChange={(e) => setUserNumber(e.target.value)}
-                                            />
-                                            <TextValidator 
-                                                className="inpt-lbl"
-                                                placeholder="Enter Password"
+                                                className="input-field"
+                                                label="Password"
                                                 value={userPassword}
                                                 type="text"
                                                 variant = "outlined"

@@ -1,5 +1,6 @@
 import { firebaseApp } from '../backend/fbConfig';
 import {authConstants} from '../store/constant';
+import firebase from 'firebase';
 
 //////////////////// User is Logged in Or Not ///////////////
 export const isUserLoggedIn = () => {
@@ -103,5 +104,39 @@ export const LogoutAction = () => {
                 type: authConstants.LOGOUT_FAILURE
             })
         })
+    }
+}
+
+//////////////// Login With Google ////////////////////////////////
+
+export const LoginWithGoogleAction = () => {
+    return async dispatch => {
+        dispatch({
+            type: authConstants.LOGIN_REQUEST
+        })
+
+        const provider = new firebase.auth.GoogleAuthProvider();
+        await firebaseApp.auth()
+            .signInWithPopup(provider)
+            .then((result) => {
+                const credential = result.credential;
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                const token = credential.accessToken;
+                // The signed-in user info.
+                const user = result.user;
+                localStorage.setItem('token', token);
+                dispatch({
+                    type: authConstants.LOGIN_SUCCESS,
+                    payload: {
+                        user, token
+                    }
+                })
+            })
+            .catch((error) => {
+                dispatch({
+                    type: authConstants.LOGIN_FAILURE
+                })
+                console.log(error);
+            })
     }
 }

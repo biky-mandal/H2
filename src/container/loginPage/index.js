@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Row,Col, Container, Form } from 'react-bootstrap';
 import Layout from '../../component/layout';
-import Input from '../../component/UI';
 import loginbg from '../../Images/login1.png';
 import './style.css';
-import {LoginAction} from '../../actions/authAction'
+import {FcGoogle} from 'react-icons/fc';
+import {LoginAction, LoginWithGoogleAction} from '../../actions/authAction'
 import { useDispatch, useSelector } from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
@@ -31,6 +31,11 @@ const Loginpage = (props) => {
         dispatch(LoginAction(userEmail, userPassword));
     }
 
+    const googleLogin = (e) => {
+        e.preventDefault();
+        dispatch(LoginWithGoogleAction());
+    }
+
     return (
         <Layout>
                 <div className="register-bg">
@@ -45,7 +50,7 @@ const Loginpage = (props) => {
                                     <Col md={{ span: 10 , offset: 1}}>
                                         <ValidatorForm useref="form" onSubmit={userLogin}>
                                             <TextValidator 
-                                                className="inpt-lbl"
+                                                className="input-field"
                                                 placeholder="Enter Email"
                                                 value={userEmail}
                                                 type="email"
@@ -72,6 +77,12 @@ const Loginpage = (props) => {
                                                 Login
                                             </button>
                                         </ValidatorForm>
+                                            <div className="or">
+                                                or
+                                            </div>
+                                            <button onClick={googleLogin} className="google-login-btn">
+                                                <FcGoogle/> <span>Login With Google</span>
+                                            </button>
                                     </Col>
                                 </Row>
                             </Container>
