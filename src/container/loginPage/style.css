@@ -19,6 +19,7 @@
     background-color: #f4f6f8 ;
     color: #404b55;
     box-shadow: 1px 1px 3px #44444470;
+    border-radius:5px;
 }
 .google-login-btn span{
     margin-left: 0.6rem;

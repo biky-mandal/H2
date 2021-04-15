@@ -1,30 +1,27 @@
 import React from 'react';
-import { Form } from 'react-bootstrap';
-import './style.css'
+import './style.css';
+import { FiUser, FiMail, FiPhone, FiInstagram, FiFacebook, FiLinkedin, FiTwitter, FiEdit, FiEdit3 } from 'react-icons/fi';
+
 
 /**
 * @author
-* @function Input
+* @function DetailSection
 **/
 
-const Input = (props) => {
+const DetailSection = (props) => {
     return (
-        <Form.Group>
-            <Form.Label className="frm-lbl">{props.label}</Form.Label>
-            <Form.Control 
-                className="input-field"
-                placeholder={props.placeholder}
-                type={props.type}
-                value={props.value}
-                onChange={props.onChange}
-                required
-            />
-            <Form.Text className="alert-lbl">
-                {props.errorMessage}
-            </Form.Text>
-        </Form.Group>
+        <div className="detail_section">
+            <div className="left_detail_section">
+                <label className="detail_heading_lbl">{props.heading}<span className="edit-btn1"><FiEdit3/></span></label>
+            </div>
+            <div className="right_detail_section">
+                <label className="detail_body_lbl">
+                    {props.body}
+                </label>
+            </div>
+        </div>
     )
 
 }
 
-export default Input
+export default DetailSection

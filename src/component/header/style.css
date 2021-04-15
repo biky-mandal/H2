@@ -28,10 +28,11 @@
     border-bottom: 1px solid #0770d3;
 }
 .register-li{
-    background-color: #404b55;
+    background-color: #f4f4f5;
+    border-radius: 5px;
 }
 .register-li a{
-    color: #f4f4f5 !important;
+    color: #353535 !important;
 }
 @media only screen and (max-width: 500px){
     .header{
