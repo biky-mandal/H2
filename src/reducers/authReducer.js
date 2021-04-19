@@ -1,8 +1,9 @@
-import { authConstants } from '../store/constant';
+import { authConstants, profileConstants } from '../store/constant';
 
 const initState = {
     token: null,
     email: null,
+    profileURL: null,
     displayName: null,
     emailVerified: false,
     authenticate: false,
@@ -89,6 +90,21 @@ export default (state = initState, action) => {
                 ...state,
                 loading: false
             }
+            break;
+        // Profile Photo URL
+        case profileConstants.UPLOAD_PROFILE_PHOTO_REQUEST:
+            state = {
+                ...state,
+                loading: true
+            }
+            break;
+        case profileConstants.UPLOAD_PROFILE_PHOTO_SUCCESS:
+            state = {
+                ...state,
+                loading: true,
+                profileURL: action.payload.url
+            }
+            break;
     }
     return state;
 }

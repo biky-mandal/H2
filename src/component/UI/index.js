@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.css';
-import { FiUser, FiMail, FiPhone, FiInstagram, FiFacebook, FiLinkedin, FiTwitter, FiEdit, FiEdit3 } from 'react-icons/fi';
+import { FiEdit3 } from 'react-icons/fi';
 
 
 /**
@@ -12,7 +12,7 @@ const DetailSection = (props) => {
     return (
         <div className="detail_section">
             <div className="left_detail_section">
-                <label className="detail_heading_lbl">{props.heading}<span className="edit-btn1"><FiEdit3/></span></label>
+                <label className="detail_heading_lbl">{props.heading}<span onClick={props.trigger} className="edit-btn1"><FiEdit3/></span></label>
             </div>
             <div className="right_detail_section">
                 <label className="detail_body_lbl">

@@ -13,7 +13,7 @@ export const isUserLoggedIn = () => {
                     const email = user.email;
                     const emailVerified = user.emailVerified;
                     const displayName = user.displayName;
-    
+
                     dispatch({
                         type: authConstants.LOGIN_SUCCESS,
                         payload: {

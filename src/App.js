@@ -17,6 +17,7 @@ import PrivateRoute from './component/hoc';
 
 import {isUserLoggedIn} from './actions/authAction';
 import { useDispatch, useSelector } from 'react-redux';
+import { GetProfileAction } from './actions/profileAction';
 
 
 function App() {
@@ -26,6 +27,11 @@ function App() {
   useEffect(() => {
     if(!auth.authenticate){ 
       dispatch(isUserLoggedIn());
+    }
+  })
+  useEffect(() => {
+    if(auth.authenticate){
+      dispatch(GetProfileAction());
     }
   })
 
