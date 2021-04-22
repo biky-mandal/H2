@@ -8,7 +8,7 @@ import DetailSection from '../../component/UI';
 import { Modal, Row, Col, Container, Form } from 'react-bootstrap';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { firebaseApp } from '../../backend/fbConfig';
-import { GetProfileAction, UploadDataAction, UploadProfilePictureAction } from '../../actions/profileAction';
+import { GetProfileAction, UploadDataAction, UploadProfilePictureAction, UploadYearAction } from '../../actions/profileAction';
 import Loader from 'react-loader-spinner';
 
 
@@ -41,7 +41,7 @@ const Profilepage = (props) => {
 
     const [initialYear, setInitialYear] = useState();
     const [finalYear, setFinalYear] = useState();
-    const Years = [
+    const Years = [ 'select',
         1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969,
         1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979,
         1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989,
@@ -49,6 +49,14 @@ const Profilepage = (props) => {
         2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009,
         2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019,
         2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029
+    ]
+    const Course = [
+        'Select',
+        'Computer Science & Engineering', 
+        'Instrumentation Engineering', 
+        'Mechanical Engineering', 
+        'Civil Engineering',
+        'Electrical Engineering'
     ]
 
     const [profileImage, setProfileImage] = useState(null);
@@ -89,6 +97,7 @@ const Profilepage = (props) => {
         setType("text")
         setNormalInput(true)
         setOpen(true);
+        setDBKey('linkedinLink');
     }
 
     const omInstagramLink = () => {
@@ -99,6 +108,7 @@ const Profilepage = (props) => {
         setType("text")
         setNormalInput(true)
         setOpen(true);
+        setDBKey('instagramLink')
     }
 
     const omFacebookLink = () => {
@@ -109,6 +119,7 @@ const Profilepage = (props) => {
         setType("text")
         setNormalInput(true)
         setOpen(true);
+        setDBKey('facebookLink')
     }
 
     const omTwitterLink = () => {
@@ -119,6 +130,7 @@ const Profilepage = (props) => {
         setType("text")
         setNormalInput(true)
         setOpen(true);
+        setDBKey('twitterLink')
     }
 
     const omHomeAddress = () => {
@@ -129,6 +141,7 @@ const Profilepage = (props) => {
         setType("text")
         setNormalInput(true)
         setOpen(true);
+        setDBKey('homeAddress');
     }
 
     const omCurrentAddress = () => {
@@ -139,6 +152,7 @@ const Profilepage = (props) => {
         setType("text")
         setNormalInput(true)
         setOpen(true);
+        setDBKey('currentAddress');
     }
 
     const omOccupation = () => {
@@ -149,16 +163,18 @@ const Profilepage = (props) => {
         setType("text")
         setNormalInput(true)
         setOpen(true);
+        setDBKey('occupation')
     }
 
     const omPassout = () => {
         setTempHeading('Room NO.');
         setPlaceholder('218');
-        setDescription('Enter the Last Room NO in Hostel')
-        setButtonText('Update Details')
-        setType("number")
-        setNormalInput(true)
+        setDescription('Enter the Last Room NO in Hostel');
+        setButtonText('Update Details');
+        setType("number");
+        setNormalInput(true);
         setOpen(true);
+        setDBKey('passOutYear');
     }
 
     // For Branch At Jec
@@ -170,6 +186,7 @@ const Profilepage = (props) => {
         setButtonText('Update Branch')
         setIsSelectDropList(true);
         setOpen(true);
+        setDBKey('branch');
     }
 
     const omBatch = () => {
@@ -200,14 +217,35 @@ const Profilepage = (props) => {
         setIsDoubleSelectDropList(false);
         setIsImage(false);
         setType('');
+        setData('');
     }
     // Upload User data
     const uploadUserData = () => {
-        dispatch(UploadDataAction(data));
+        if(initialYear && finalYear){
+            const fullData = {
+                initialYear: initialYear,
+                finalYear: finalYear,
+                dbkey1: 'entryYear',
+                dbkey2: 'passOutYear'
+            }
+            dispatch(UploadYearAction(fullData));
+        }else{
+            const fullData = {
+                data: data, 
+                dbkey: dbkey
+            }
+            dispatch(UploadDataAction(fullData));
+        }
         if(profile.userDetails){
             dispatch(GetProfileAction());
         }
         closeModal();
+    }
+
+    const reFatch = () => {
+        if(profile.userDetails){
+            dispatch(GetProfileAction());
+        }
     }
 
     return (
@@ -268,11 +306,11 @@ const Profilepage = (props) => {
                                                         as="select"
                                                         onChange={(e) => setData(e.target.value)}
                                                     >
-                                                    <option value={data}>Computer Science & Engineering</option>
-                                                    <option value={data}>Instrumentation Engineering</option>
-                                                    <option value={data}>Mechanical Engineering</option>
-                                                    <option value={data}>Civil Engineering</option>
-                                                    <option value={data}>Electrical Engineering</option>
+                                                    {
+                                                        Course.map(c => {
+                                                            return <option value={c}>{c}</option>
+                                                        })
+                                                    }
                                                     </Form.Control>
                                                 </Form.Group>
                                                 <Row style={{ marginBottom: 25 }}>
@@ -391,7 +429,7 @@ const Profilepage = (props) => {
 
                         <label className="email-lbl">
                             <span><FiPhone /></span>
-                                {profile.userDetails ? profile.userDetails.phoneNumber : "loading..."}
+                                {profile.userDetails ? profile.userDetails.phoneNumber : 'Loading..'}
                             <span className="edit-btn" onClick={omPhone}><FiEdit3 /></span>
                         </label>
 
@@ -399,25 +437,25 @@ const Profilepage = (props) => {
 
                         <label className="email-lbl">
                             <span><FiLinkedin /></span>
-                            <a href="https://www.instagram.com/biky.me/" target="_blank">LinkedIn</a>
+                            <a href={profile.userDetails ? profile.userDetails.linkedinLink : null} target="_blank">LinkedIn</a>
                             <span onClick={omLinkedInLink} className="edit-btn"><FiEdit3 /></span>
                         </label>
 
                         <label className="name-lbl">
                             <span><FiInstagram /></span>
-                            <a href="https://www.instagram.com/biky.me/" target="_blank">Instagram</a>
+                            <a href={profile.userDetails ? profile.userDetails.instagramLink : null} target="_blank">Instagram</a>
                             <span onClick={omInstagramLink} className="edit-btn"><FiEdit3 /></span>
                         </label>
 
                         <label className="email-lbl">
                             <span><FiFacebook /></span>
-                            <a href="https://www.instagram.com/biky.me/" target="_blank">Facebook</a>
+                            <a href={profile.userDetails ? profile.userDetails.facebookLink : null} target="_blank">Facebook</a>
                             <span onClick={omFacebookLink} className="edit-btn"><FiEdit3 /></span>
                         </label>
 
                         <label className="email-lbl">
                             <span><FiTwitter /></span>
-                            <a href="https://www.instagram.com/biky.me/" target="_blank">Twitter</a>
+                            <a href={profile.userDetails ? profile.userDetails.twitterLink : null} target="_blank">Twitter</a>
                             <span onClick={omTwitterLink} className="edit-btn"><FiEdit3 /></span>
                         </label>
                     </div>
@@ -426,12 +464,18 @@ const Profilepage = (props) => {
                 {/* Right Div */}
                 <div className="profile_right_div">
                     <div className="profile_right_div_scrollable">
-                        <DetailSection trigger={omBranch} heading="Branch At JEC" body="Choose Your Branch" />
-                        <DetailSection trigger={omBatch} heading="Batch" body="2018 to 2022" />
-                        <DetailSection trigger={omHomeAddress} heading="Home Address" body="Please Enter Your Home Address..Like Dibrugarh, Assam" />
-                        <DetailSection trigger={omCurrentAddress} heading="Current Address" body="Please Enter Your Current Address..Guwahati, Assam" />
-                        <DetailSection trigger={omOccupation} heading="Occupation" body="Please Enter Your Occupation in brief." />
-                        <DetailSection trigger={omPassout} heading="PassOut Year Room no." body="Please Enter Your Last year Hostel Room No" />
+                        <DetailSection trigger={omBranch} heading="Branch At JEC" body={profile.userDetails ? profile.userDetails.branch : null} />
+                        <DetailSection trigger={omBatch}
+                            heading="Batch" 
+                            body={
+                                profile.userDetails ?   
+                                `${profile.userDetails.entryYear} to ${profile.userDetails.passOutYear}` : null
+                            } 
+                        />
+                        <DetailSection reFatch={reFatch} trigger={omHomeAddress} heading="Home Address" body={profile.userDetails ? profile.userDetails.homeAddress : null} />
+                        <DetailSection reFatch={reFatch} trigger={omCurrentAddress} heading="Current Address" body={profile.userDetails ? profile.userDetails.currentAddress : null} />
+                        <DetailSection reFatch={reFatch} trigger={omOccupation} heading="Occupation" body={profile.userDetails ? profile.userDetails.occupation : null} />
+                        <DetailSection reFatch={reFatch} trigger={omPassout} heading="PassOut Year Room no." body={profile.userDetails ? profile.userDetails.passOutYear : null} />
                     </div>
                 </div>
             </div>

@@ -1,6 +1,29 @@
 import { firebaseApp } from '../backend/fbConfig';
-import {authConstants} from '../store/constant';
+import {authConstants, profileConstants} from '../store/constant';
 import firebase from 'firebase';
+
+
+////////////////// Reset Password //////////////////////////
+export const ResetPasswordAction = (email) => {
+    return async dispatch => {
+        dispatch({
+            type: profileConstants.RESET_PASSWORD_REQUEST
+        })
+        await firebaseApp.auth().sendPasswordResetEmail(email).then(() =>{
+            const message = 'PassWord Reset Link Sent to Your Email Address.';
+            alert(message)
+            dispatch({
+                type: profileConstants.RESET_PASSWORD_SUCCESS
+            })
+        }).catch((err) => {
+            console.log(err)
+            alert(err.message)
+            dispatch({
+                type: profileConstants.RESET_PASSWORD_FAILURE
+            })
+        })
+    }
+}
 
 //////////////////// User is Logged in Or Not ///////////////
 export const isUserLoggedIn = () => {
@@ -37,35 +60,52 @@ export const RegisterAction = (userEmail, userPassword, userName) => {
             if(user){
                 user.updateProfile({
                     displayName: userName
+                }).then(() => {
+                    user.getIdToken().then((token) => {
+
+                        const email = user.email;
+                        const emailVerified = user.emailVerified;
+                        const displayName = user.displayName;
+    
+                        localStorage.setItem('token', token);
+                        localStorage.setItem('email', email);
+                        localStorage.setItem('displayName', displayName);
+    
+                        // Saving data to firestore
+                        const db = firebaseApp.firestore();
+                        db.collection('users').doc(user.email).set({
+                            email : user.email,
+                            fullName: user.displayName
+                        }, {merge: true})
+    
+                        dispatch({
+                            type: authConstants.REGISTER_SUCCESS,
+                            payload: {
+                                token, email, emailVerified, displayName
+                            }
+                        })
+                    }).catch((error) => {
+                        console.log(error);
+                        const message = error.message
+                        dispatch({
+                            type: authConstants.REGISTER_FAILURE,
+                            payload:{
+                                message: message
+                            }
+                        })
+                    });
                 })
-                user.getIdToken().then((token) => {
-
-                    const email = user.email;
-                    const emailVerified = user.emailVerified;
-                    const displayName = user.displayName;
-
-                    localStorage.setItem('token', token);
-                    localStorage.setItem('email', email);
-                    localStorage.setItem('displayName', displayName);
-
-                    dispatch({
-                        type: authConstants.REGISTER_SUCCESS,
-                        payload: {
-                            token, email, emailVerified, displayName
-                        }
-                    })
-                }).catch((error) => {
-                    console.log(error);
-                    dispatch({
-                        type: authConstants.REGISTER_FAILURE
-                    })
-                });
             }
         })
         .catch((error) => {
             console.log(error);
+            const message = error.message
+            console.log(message)
             dispatch({
-                type: authConstants.REGISTER_FAILURE
+                type: authConstants.REGISTER_FAILURE,
+                payload:{
+                    message: message
+                }
             })
         })
     }
@@ -101,16 +141,24 @@ export const LoginAction = (userEmail, userPassword) => {
                     })
                 }).catch((error) => {
                     console.log(error);
+                    const message = error.message;
                     dispatch({
-                        type: authConstants.LOGIN_FAILURE
+                        type: authConstants.LOGIN_FAILURE,
+                        payload: {
+                            message: message
+                        }
                     })
                 });
             }
         })
         .catch((error) => {
             console.log(error);
+            const message = error.message;
             dispatch({
-                type: authConstants.LOGIN_FAILURE
+                type: authConstants.LOGIN_FAILURE,
+                payload: {
+                    message: message
+                }
             })
         })
     }
@@ -165,6 +213,13 @@ export const LoginWithGoogleAction = () => {
                     localStorage.setItem('token', token);
                     localStorage.setItem('email', email);
                     localStorage.setItem('displayName', displayName);
+
+                    // Saving data to firestore
+                    const db = firebaseApp.firestore();
+                    db.collection('users').doc(user.email).set({
+                        email : user.email,
+                        fullName: user.displayName
+                    }, {merge: true})
 
                     dispatch({
                         type: authConstants.LOGIN_SUCCESS,

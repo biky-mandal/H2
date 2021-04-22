@@ -8,7 +8,7 @@ const initState = {
     emailVerified: false,
     authenticate: false,
     authenticating: false,
-    errorMessage: null,
+    errorMessage: '',
     message: '',
     loading: false,
     toLoginPage: false
@@ -40,7 +40,8 @@ export default (state = initState, action) => {
             state = {
                 ...state,
                 authenticating: false,
-                loading: false
+                loading: false,
+                errorMessage: action.payload.message
             }
             break;
 
@@ -68,7 +69,8 @@ export default (state = initState, action) => {
             state = {
                 ...state,
                 authenticating: false,
-                loading: false
+                loading: false,
+                errorMessage: action.payload.message
             }
             break;
 
@@ -101,8 +103,28 @@ export default (state = initState, action) => {
         case profileConstants.UPLOAD_PROFILE_PHOTO_SUCCESS:
             state = {
                 ...state,
-                loading: true,
+                loading: false,
                 profileURL: action.payload.url
+            }
+            break;
+        
+        // Reset Email Password
+        case profileConstants.RESET_PASSWORD_REQUEST:
+            state = {
+                ...state,
+                loading: true
+            }
+            break;
+        case profileConstants.RESET_PASSWORD_SUCCESS:
+            state = {
+                ...state,
+                loading: false,
+            }
+            break;
+        case profileConstants.RESET_PASSWORD_FAILURE:
+            state = {
+                ...state, 
+                loading: false,
             }
             break;
     }

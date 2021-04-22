@@ -8,6 +8,7 @@ import {RegisterAction} from '../../actions/authAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import {FiX} from 'react-icons/fi';
 
 
 /**
@@ -80,6 +81,7 @@ const Registerpage = (props) => {
                                                 By Registering to this site you accept the terms 
                                                 and privacy-policy of this page.
                                             </label>
+                                            {auth.errorMessage ? <div className="warning-div">{auth.errorMessage}</div> : null}
                                             <button className="register-btn">
                                                 Register
                                             </button>

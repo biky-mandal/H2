@@ -26,3 +26,21 @@
     text-align: left;
     font-size: 0.8rem;
 }
+.forgotpass{
+    margin-top: 0rem !important;
+    color: #404b55;
+    cursor: pointer;
+}
+.cancel-btn{
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+    text-align: center;
+    width: 100%;
+    height: 2.4rem;
+    outline: none;
+    border: none;
+    margin-top: 1rem;
+    background-color: #404b5513 ;
+    color: #292929;
+    border-radius: 5px;
+}

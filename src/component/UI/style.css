@@ -9,11 +9,11 @@
     padding: 1rem;
 }
 .left_detail_section{
-    width: 30%;
+    width: 35%;
     height: auto;
 }
 .right_detail_section{
-    width: 70%;
+    width: 65%;
     height: auto;
     border-left: 1px solid #cfcfcf;
     padding-left: 1rem;
@@ -40,4 +40,18 @@
 }
 .detail_section:hover .edit-btn1{
     display: initial;
+}
+.detail_section:hover .refresh-btn  {
+    display: initial;
+}
+.refresh-btn{
+    color: blue;
+    margin-left: 1rem;
+    display: none;
+    cursor: pointer;
+    transition: transform 1s;
+}
+.refresh-btn:hover{
+    color: #527a1d;
+    transform: rotateY(180deg);
 }

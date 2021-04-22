@@ -71,7 +71,7 @@ export const UploadProfilePictureAction = (profileImage) => {
     }
 }
 
-export const UploadDataAction = (data) => {
+export const UploadDataAction = (fullData) => {
     return async dispatch => {
         dispatch({
             type: profileConstants.UPLOAD_DATA_REQUEST
@@ -80,7 +80,34 @@ export const UploadDataAction = (data) => {
         if(user){
             const db = firebaseApp.firestore();
             await db.collection('users').doc(user.email).set({
-                    phoneNumber : data
+                    [`${fullData.dbkey}`] : fullData.data
+                }, {merge: true})
+                .then(() => {
+                    dispatch({
+                        type: profileConstants.UPLOAD_DATA_SUCCESS
+                    })
+                    console.log("Updated!")
+                }).catch(() => {
+                    console.log("Something Went Wrong!")
+                    dispatch({
+                        type: profileConstants.UPLOAD_DATA_FAILURE
+                    })
+                })
+        }
+    }
+}
+
+export const UploadYearAction = (fullData) => {
+    return async dispatch => {
+        dispatch({
+            type: profileConstants.UPLOAD_DATA_REQUEST
+        })
+        const user = firebaseApp.auth().currentUser
+        if(user){
+            const db = firebaseApp.firestore();
+            await db.collection('users').doc(user.email).set({
+                    [`${fullData.dbkey1}`] : fullData.initialYear,
+                    [`${fullData.dbkey2}`] : fullData.finalYear
                 }, {merge: true})
                 .then(() => {
                     dispatch({
