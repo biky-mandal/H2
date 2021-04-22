@@ -475,7 +475,7 @@ const Profilepage = (props) => {
                         <DetailSection reFatch={reFatch} trigger={omHomeAddress} heading="Home Address" body={profile.userDetails ? profile.userDetails.homeAddress : null} />
                         <DetailSection reFatch={reFatch} trigger={omCurrentAddress} heading="Current Address" body={profile.userDetails ? profile.userDetails.currentAddress : null} />
                         <DetailSection reFatch={reFatch} trigger={omOccupation} heading="Occupation" body={profile.userDetails ? profile.userDetails.occupation : null} />
-                        <DetailSection reFatch={reFatch} trigger={omPassout} heading="PassOut Year Room no." body={profile.userDetails ? profile.userDetails.passOutYear : null} />
+                        <DetailSection reFatch={reFatch} trigger={omPassout} heading="PassOut Year Room no." body={profile.userDetails ? profile.userDetails.roomNo : null} />
                     </div>
                 </div>
             </div>

@@ -1,48 +1,67 @@
-.newsfeed_main_div{
-    width: 100%;
-    height: 90vh;
-    padding: 0 5rem;
-    background-color: #edeff1;
+.newsfeed_main_div {
+  width: 100%;
+  height: 90vh;
+  padding: 0 5rem;
+  background-color: #edeff1;
 }
-.sub_newsfeed{
-    width: 100%;
-    height: 80vh;
-    display: flex;
-    padding-top: 5vh;
+.sub_newsfeed {
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  padding-top: 5vh;
 }
-.left-div{
-    width: 25%;
-    height: 80vh;
-    margin-right: 2.5%;
-    background-color: #f8f9fa;
-    border-radius: 12px;
+.left-div {
+  width: 25%;
+  height: 80vh;
+  margin-right: 2.5%;
+  background-color: #f8f9fa;
+  border-radius: 12px;
 }
-.middle-div{
-    width: 40%;
-    height: 80vh;
-    margin-right: 2.5%;
-    background-color: #f8f9fa;
-    border-radius: 12px;
-
+.middle-div {
+  width: 40%;
+  height: 80vh;
+  margin-right: 2.5%;
+  background-color: #f8f9fa;
+  border-radius: 12px;
 }
-.right-div{
-    width: 30%;
-    height: 80vh;
-    background-color: #ffffff;
-    border-radius: 12px;
+.right-div {
+  width: 30%;
+  height: 80vh;
+  border-radius: 12px;
 }
-.sub1-right-div{
-    width: 100%;
-    height: 80%; /* Can be use auto for inifinte scroll*/
-    padding: 8%;
+.sub1-right-div {
+  width: 100%;
+  height: 45vh; /* Can be use auto for inifinte scroll*/
+  padding: 8%;
+  background-color: #ffffff;
+  border-radius: 12px;
 }
-.create_post_lbl{
-    font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
-    color: #404b55;
+.sub2-right-div {
+  width: 100%;
+  height: 32vh; /* Can be use auto for inifinte scroll*/
+  padding: 8%;
+  margin-top: 5%;
+  background-color: #ffffff;
+  border-radius: 12px;
 }
-.inpt-post{
-    width: 100%;
-    font-family: 'Poppins', sans-serif;
-    font-size: 10px;
+.inpt-post {
+  width: 100%;
+  font-family: "Poppins", sans-serif;
+  font-size: 10px;
+}
+.input_file {
+  margin-top: 1rem;
+}
+.post_btn {
+  width: 100%;
+  height: 2.4rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.8rem;
+  text-align: center;
+  outline: none;
+  border: none;
+  margin-top: 1rem;
+  background-color: #404b55;
+  color: #ffffff;
+  border-radius: 5px;
 }
