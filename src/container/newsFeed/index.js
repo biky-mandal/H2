@@ -5,6 +5,8 @@ import "./style.css";
 import { Col, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { UploadPostAction } from "../../actions/postAction";
+import img from '../../Images/169.jpg';
+import {FiCheck, FiMessageSquare, FiX, FiSend} from 'react-icons/fi';
 
 /**
  * @author
@@ -15,6 +17,8 @@ const Newsfeed = (props) => {
   const dispatch = useDispatch();
   const [post, setPost] = useState("");
   const [postImage, setPostImage] = useState(null);
+  const [commentOn, setCommetOn] = useState(false);
+  const [comment, setComment] = useState('');
 
   const handleImage = (e) => {
     if(e.target.files[0]){
@@ -32,12 +36,80 @@ const Newsfeed = (props) => {
     setPostImage(null);
   }
 
+  const comentDivClicked = () => {
+    setCommetOn(true)
+  }
+
+  const closeCommentSection = () => {
+    setCommetOn(false)
+  }
+
   return (
     <Layout>
       <div className="newsfeed_main_div">
         <div className="sub_newsfeed">
           <div className="left-div"></div>
-          <div className="middle-div"></div>
+          {/* **************************************** */}
+          <div className="middle-div">
+            {
+              commentOn ? 
+                <div id="comment-box" className="comment_section_div">
+                  <div className="comment_section_top">
+                    <label>Comments</label>
+                    <span onClick={closeCommentSection}><FiX/></span>
+                  </div>
+                  <div className="comment_section_middle">
+
+                  </div>
+                  <div className="comment_section_bottom">
+                    <input
+                      className="comment_input"
+                      placeholder="post a Comment"
+                      type="text"
+                      value={comment}
+                      onChange={(e) => setComment(e.target.value)}
+                    />
+                    <span><FiSend/></span>
+                  </div>
+                </div>
+              :
+              <div className="post_div">
+                <div className="post_top">
+                  <div className="profile_photo_in_feed_div">
+                    <img src={img}/>
+                  </div>
+                  <div className="name_and_time_div">
+                    <label className="profileName_lbl_in_post">Biky Mandal</label>
+                    <label className="date_of_post">Fri Apr 23 2021 01:09:07</label>
+                  </div>
+                </div>
+                <div className="post_mid"> 
+                  <img src={img}/>
+                </div>
+                <div className="post_bottom">
+                  <label className="post_lbl">
+                    It is a long established fact that a reader will 
+                    be distracted by the readable content of a page 
+                    when looking at its layout. 
+                    The point of using Lorem Ipsum is that it has a 
+                    more-or-less normal distribution of letters, 
+                    as opposed to using 'Content here, content here',
+                  </label>
+                </div>
+                <div className="like_and_comment_box">
+                    <div className="like_div">
+                      <label><span><FiCheck/></span>ok</label>
+                      <label className="count">123</label>
+                    </div>
+                    <div className="comment_div" onClick={comentDivClicked}>
+                      <label><span><FiMessageSquare/></span>Comment</label>
+                      <label className="count">26</label>
+                    </div>
+                </div>
+              </div>
+            }
+          </div>
+          {/* ************************************** */}
           <div className="right-div">
             <div className="sub1-right-div">
               <form noValidate autoComplete="off">
@@ -49,18 +121,23 @@ const Newsfeed = (props) => {
                   multiline
                   value={post}
                   onChange={(e) => setPost(e.target.value)}
-                  rows={4}
+                  rows={6}
                 />
                 <input className="input_file" type="file" onChange={handleImage}/>
                 <Row style={{marginTop: 10}}>
                     <Col md={{ span: 12, offset: 0 }}>
-                        <button onClick={postCreationForm} className="post_btn">Post</button>
+                      <label className="tandc">
+                        The post will be seen by all hostel Boarders So think
+                        twice before posting any thing. And Choose Your Image of 
+                        ratio <span>16:9</span>
+                      </label>
+                      <button onClick={postCreationForm} className="post_btn">Post</button>
                     </Col>
                 </Row>
               </form>
             </div>
-            <div className="sub2-right-div"></div>
           </div>
+          {/* **************************************** */}
         </div>
       </div>
     </Layout>

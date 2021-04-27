@@ -166,7 +166,7 @@ const Profilepage = (props) => {
         setDBKey('occupation')
     }
 
-    const omPassout = () => {
+    const omPassoutRoom = () => {
         setTempHeading('Room NO.');
         setPlaceholder('218');
         setDescription('Enter the Last Room NO in Hostel');
@@ -174,15 +174,13 @@ const Profilepage = (props) => {
         setType("number");
         setNormalInput(true);
         setOpen(true);
-        setDBKey('passOutYear');
+        setDBKey('roomNo');
     }
 
     // For Branch At Jec
     // CSE, CE, ME, IE, EE
     const omBranch = () => {
         setTempHeading('Branch At JEC');
-        setPlaceholder('Computer Science & Engineering');
-        setDescription('Enter Your Branch At JEC')
         setButtonText('Update Branch')
         setIsSelectDropList(true);
         setOpen(true);
@@ -218,6 +216,8 @@ const Profilepage = (props) => {
         setIsImage(false);
         setType('');
         setData('');
+        setInitialYear(null);
+        setFinalYear(null);
     }
     // Upload User data
     const uploadUserData = () => {
@@ -475,7 +475,7 @@ const Profilepage = (props) => {
                         <DetailSection reFatch={reFatch} trigger={omHomeAddress} heading="Home Address" body={profile.userDetails ? profile.userDetails.homeAddress : null} />
                         <DetailSection reFatch={reFatch} trigger={omCurrentAddress} heading="Current Address" body={profile.userDetails ? profile.userDetails.currentAddress : null} />
                         <DetailSection reFatch={reFatch} trigger={omOccupation} heading="Occupation" body={profile.userDetails ? profile.userDetails.occupation : null} />
-                        <DetailSection reFatch={reFatch} trigger={omPassout} heading="PassOut Year Room no." body={profile.userDetails ? profile.userDetails.roomNo : null} />
+                        <DetailSection reFatch={reFatch} trigger={omPassoutRoom} heading="PassOut Year Room no." body={profile.userDetails ? profile.userDetails.roomNo : null} />
                     </div>
                 </div>
             </div>

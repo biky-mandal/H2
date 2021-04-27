@@ -10,7 +10,6 @@ export const GetProfileAction = () => {
         const user = firebaseApp.auth().currentUser
         console.log(user)
         if(user){
-            console.log(user.email)
             const db = firebaseApp.firestore();
             const ref = db.collection('users').doc(user.email);
             const doc = await ref.get();
@@ -78,8 +77,7 @@ export const UploadDataAction = (fullData) => {
         })
         const user = firebaseApp.auth().currentUser
         if(user){
-            const db = firebaseApp.firestore();
-            await db.collection('users').doc(user.email).set({
+            await firebaseApp.firestore().collection('users').doc(user.email).set({
                     [`${fullData.dbkey}`] : fullData.data
                 }, {merge: true})
                 .then(() => {
