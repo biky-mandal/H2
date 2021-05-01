@@ -10,7 +10,27 @@ import './style.css';
 const Homepage = (props) => {
     return (
         <Layout>
-            <div>Hello World</div>
+            <div className="wrapper">
+                <div className="section parallax image1"> 
+                    <h1>Some Text</h1>
+                </div>
+                <div className="section static">
+                    <h1>No Backgorund section</h1>
+                </div>
+
+                <div className="section parallax image2"> 
+                    <h1>Some Text</h1>
+                </div>
+                <div className="section static">
+                    <h1>No Backgorund section</h1>
+                </div>
+                <div className="section parallax image3"> 
+                    <h1>Some Text</h1>
+                </div>
+                <div className="section static">
+                    <h1>No Backgorund section</h1>
+                </div>
+            </div>
         </Layout>
     )
 

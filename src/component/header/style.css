@@ -5,6 +5,7 @@
     left: 0;
     right: 0;
     z-index: 100000;
+    height: 10vh;
     padding: 1rem 6rem;
 }
 .navlogo{
