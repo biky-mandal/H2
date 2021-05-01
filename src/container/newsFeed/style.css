@@ -159,7 +159,7 @@
 .post_div{
   width: 100%;
   height: auto;
-  border-radius: 12px;
+  border-bottom: 1px solid #cfcfcf63;
 }
 .post_top{
   width: 100%;
@@ -206,7 +206,7 @@
 .post_bottom{
   width: 100%;
   height: auto;
-  background-color: #a9cbe9;
+  background-color: #ffffff;
   padding: 1vh 1vw;
 }
 .post_lbl{
@@ -227,11 +227,6 @@
   height: 100%;
   cursor: pointer;
   color: #404b55;
-}
-.like_div:hover span{
-  cursor: pointer;
-  color: #0084ff;
-  margin-right: 1rem;
 }
 .comment_div{
   text-align: right;
@@ -274,4 +269,9 @@
 .count{
   margin-left: 0.5rem;
   cursor: pointer;
+}
+.date_of_post{
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.7rem;
+  color: #404b55ab;
 }

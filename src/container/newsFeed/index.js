@@ -3,7 +3,7 @@ import Layout from "../../component/layout";
 import { TextField } from "@material-ui/core";
 import "./style.css";
 import { Col, Row } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { UploadPostAction } from "../../actions/postAction";
 import img from '../../Images/169.jpg';
 import {FiCheck, FiMessageSquare, FiX, FiSend} from 'react-icons/fi';
@@ -19,6 +19,8 @@ const Newsfeed = (props) => {
   const [postImage, setPostImage] = useState(null);
   const [commentOn, setCommetOn] = useState(false);
   const [comment, setComment] = useState('');
+
+  const poststate = useSelector(state => state.poststate);
 
   const handleImage = (e) => {
     if(e.target.files[0]){
@@ -73,40 +75,40 @@ const Newsfeed = (props) => {
                   </div>
                 </div>
               :
-              <div className="post_div">
-                <div className="post_top">
-                  <div className="profile_photo_in_feed_div">
-                    <img src={img}/>
-                  </div>
-                  <div className="name_and_time_div">
-                    <label className="profileName_lbl_in_post">Biky Mandal</label>
-                    <label className="date_of_post">Fri Apr 23 2021 01:09:07</label>
-                  </div>
-                </div>
-                <div className="post_mid"> 
-                  <img src={img}/>
-                </div>
-                <div className="post_bottom">
-                  <label className="post_lbl">
-                    It is a long established fact that a reader will 
-                    be distracted by the readable content of a page 
-                    when looking at its layout. 
-                    The point of using Lorem Ipsum is that it has a 
-                    more-or-less normal distribution of letters, 
-                    as opposed to using 'Content here, content here',
-                  </label>
-                </div>
-                <div className="like_and_comment_box">
-                    <div className="like_div">
-                      <label><span><FiCheck/></span>ok</label>
-                      <label className="count">123</label>
+                poststate.posts ? 
+                poststate.posts.map(post => {
+                  return(
+                    <div className="post_div">
+                      <div className="post_top">
+                        <div className="profile_photo_in_feed_div">
+                          <img src={post.userphotoUrl}/>
+                        </div>
+                        <div className="name_and_time_div">
+                          <label className="profileName_lbl_in_post">{post.username}</label>
+                          <label className="date_of_post">Fri Apr 23 2021 01:09:07</label>
+                        </div>
+                      </div>
+                      <div className="post_mid"> 
+                        <img src={post.imageUrl}/>
+                      </div>
+                      <div className="post_bottom">
+                        <label className="post_lbl">
+                          {post.post}
+                        </label>
+                      </div>
+                      <div className="like_and_comment_box">
+                          <div className="like_div">
+                            <label><span><FiCheck/></span>ok</label>
+                            <label className="count">123</label>
+                          </div>
+                          <div className="comment_div" onClick={comentDivClicked}>
+                            <label><span><FiMessageSquare/></span>Comment</label>
+                            <label className="count">26</label>
+                          </div>
+                      </div>
                     </div>
-                    <div className="comment_div" onClick={comentDivClicked}>
-                      <label><span><FiMessageSquare/></span>Comment</label>
-                      <label className="count">26</label>
-                    </div>
-                </div>
-              </div>
+                  );
+                }) : <label>Loading...</label>
             }
           </div>
           {/* ************************************** */}

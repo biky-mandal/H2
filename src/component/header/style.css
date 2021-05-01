@@ -1,5 +1,6 @@
 .navbar-bg{
     background-color: #4c5c78 !important;
+    /* background-image: linear-gradient(to right, #e77431, #4c5c78); */
     position: sticky;
     top: 0;
     left: 0;
