@@ -1,6 +1,24 @@
 import { firebaseApp } from "../backend/fbConfig";
 import { postConstants } from "../store/constant";
 
+// FUnction to get the date
+function GetFormattedDate() {
+  let todayTime = new Date();
+  const months = [
+    "January","February","March","April",
+    "May","June","July","August","September",
+    "October","November","December"
+  ];
+  let month = months[todayTime.getMonth()];
+  let day = todayTime.getDate().toString();
+  let year = todayTime.getFullYear().toString();
+  
+  let hours = todayTime.getHours().toString();
+  let minute = todayTime.getMinutes().toString();
+
+  return day + " " + month + " " + year + " at " + hours + ":" + minute;
+}
+
 export const GetPostAction = () => {
   return async dispatch => {
     dispatch({
@@ -16,6 +34,7 @@ export const GetPostAction = () => {
       .limit(3)
       .get()
       .then((querySnapshot) => {
+        // console.log(querySnapshot.docs.c);
         const documents = querySnapshot.docs.map(doc => doc.data())
         console.log(documents);
         dispatch({
@@ -33,6 +52,7 @@ export const GetPostAction = () => {
     }
   }
 }
+
 
 export const UploadPostAction = (post, image) => {
   return async (dispatch) => {
@@ -59,8 +79,11 @@ export const UploadPostAction = (post, image) => {
             .then((url) => {
               const timeInMilliSeconds = new Date().getTime().toString();
 
+              const postTime = GetFormattedDate();
+
               const user = firebaseApp.auth().currentUser;
               if (user) {
+                console.log(user);
                 const db = firebaseApp.firestore();
                 db.collection("posts").doc(timeInMilliSeconds).set({
                   username: user.displayName,
@@ -68,7 +91,8 @@ export const UploadPostAction = (post, image) => {
                   email : user.email,
                   imageUrl : url,
                   post: post,
-                  id: timeInMilliSeconds
+                  id: timeInMilliSeconds,
+                  postTime: postTime
                 })
                 .then(() => {
                   dispatch({
@@ -87,3 +111,25 @@ export const UploadPostAction = (post, image) => {
       );
   };
 };
+
+
+export const createOkAction = (postId) => {
+  return async dispatch => {
+    const timeInMilliSeconds = new Date().getTime().toString();
+    const user = firebaseApp.auth().currentUser
+    console.log(postId)
+    if(user){
+      await firebaseApp.firestore()
+      .collection('posts')
+      .doc(postId)
+      .collection('likes')
+      .doc(timeInMilliSeconds)
+      .set({
+        userId: user.uid,
+        id: timeInMilliSeconds
+      }).then(() => {
+        console.log("Liked")
+      })
+    }
+  }
+}

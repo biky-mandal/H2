@@ -4,7 +4,7 @@ import { TextField } from "@material-ui/core";
 import "./style.css";
 import { Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { UploadPostAction } from "../../actions/postAction";
+import { UploadPostAction, createOkAction } from "../../actions/postAction";
 import img from '../../Images/169.jpg';
 import {FiCheck, FiMessageSquare, FiX, FiSend} from 'react-icons/fi';
 
@@ -45,6 +45,15 @@ const Newsfeed = (props) => {
   const closeCommentSection = () => {
     setCommetOn(false)
   }
+  const okButtonClicked = (e) => {
+    // Getting Id from Post
+    // const postTime = document.getElementById("posttimeid").innerHTML
+    const idOfPostFromClick = e.target.parentElement.parentElement.parentElement.id;
+    if(idOfPostFromClick){
+      console.log(idOfPostFromClick);
+      dispatch(createOkAction(idOfPostFromClick));
+    }
+  }
 
   return (
     <Layout>
@@ -82,14 +91,14 @@ const Newsfeed = (props) => {
                 poststate.posts ? 
                 poststate.posts.map(post => {
                   return(
-                    <div className="post_div">
+                    <div id={post.id} className="post_div" key={Math.random()}>
                       <div className="post_top">
                         <div className="profile_photo_in_feed_div">
                           <img src={post.userphotoUrl}/>
                         </div>
                         <div className="name_and_time_div">
                           <label className="profileName_lbl_in_post">{post.username}</label>
-                          <label className="date_of_post">Fri Apr 23 2021 01:09:07</label>
+                          <label className="date_of_post">{post.postTime}</label>
                         </div>
                       </div>
                       <div className="post_bottom">
@@ -101,7 +110,7 @@ const Newsfeed = (props) => {
                         <img src={post.imageUrl}/>
                       </div>
                       <div className="like_and_comment_box">
-                          <div className="like_div">
+                          <div className="like_div" onClick={okButtonClicked}>
                             <label><span><FiCheck/></span>ok</label>
                             <label className="count">123</label>
                           </div>
