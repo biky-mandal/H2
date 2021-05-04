@@ -53,6 +53,10 @@ const Newsfeed = (props) => {
           <div className="left-div"></div>
           {/* **************************************** */}
           <div className="middle-div">
+            <div className="post-div-main-top">
+              <label>All Updated POST will Appear Here.</label>
+            </div>
+
             {
               commentOn ? 
                 <div id="comment-box" className="comment_section_div">
@@ -88,13 +92,13 @@ const Newsfeed = (props) => {
                           <label className="date_of_post">Fri Apr 23 2021 01:09:07</label>
                         </div>
                       </div>
-                      <div className="post_mid"> 
-                        <img src={post.imageUrl}/>
-                      </div>
                       <div className="post_bottom">
                         <label className="post_lbl">
                           {post.post}
                         </label>
+                      </div>
+                      <div className="post_mid"> 
+                        <img src={post.imageUrl}/>
                       </div>
                       <div className="like_and_comment_box">
                           <div className="like_div">

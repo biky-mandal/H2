@@ -12,6 +12,8 @@ export const GetPostAction = () => {
       const db = firebaseApp.firestore();
       await db
       .collection('posts')
+      .orderBy('id', 'desc')
+      .limit(3)
       .get()
       .then((querySnapshot) => {
         const documents = querySnapshot.docs.map(doc => doc.data())
@@ -65,7 +67,8 @@ export const UploadPostAction = (post, image) => {
                   userphotoUrl: user.photoURL,
                   email : user.email,
                   imageUrl : url,
-                  post: post
+                  post: post,
+                  id: timeInMilliSeconds
                 })
                 .then(() => {
                   dispatch({
