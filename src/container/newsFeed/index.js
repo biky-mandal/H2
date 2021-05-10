@@ -4,7 +4,7 @@ import { TextField } from "@material-ui/core";
 import "./style.css";
 import { Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { UploadPostAction, createOkAction, createCommentAction } from "../../actions/postAction";
+import { UploadPostAction, createOkAction, createCommentAction, GetPostAction } from "../../actions/postAction";
 import {FiCheck, FiMessageSquare, FiX, FiSend} from 'react-icons/fi';
 
 /**
@@ -22,9 +22,27 @@ const Newsfeed = (props) => {
 
   const poststate = useSelector(state => state.poststate);
 
+  const getUpdatedPost = () => {
+    dispatch(GetPostAction());
+    console.log("Ok")
+  }
+
+  // It will Refresh the Page Every time whenever the Post Is CHanges
+  useEffect(() => {
+
+  },[poststate])
+
+  useEffect(() => {
+
+  }, []);
+
   const handleImage = (e) => {
     if(e.target.files[0]){
         setPostImage(e.target.files[0]);
+        let src = URL.createObjectURL(e.target.files[0]);
+        let preview = document.getElementById("selected_img");
+        preview.src = src;
+        preview.style.display = "block";
     }
   }
 
@@ -36,6 +54,7 @@ const Newsfeed = (props) => {
     }
     setPost('');
     setPostImage(null);
+    setTimeout(getUpdatedPost, 2000);
   }
 
   const comentDivClicked = (e) => {
@@ -44,33 +63,41 @@ const Newsfeed = (props) => {
     console.log(idOfPostFromClick);
     // Setting The Id Of The Post For Future Reference.
     setPostId(idOfPostFromClick)
+    setTimeout(getUpdatedPost, 2000);
   }
 
   const closeCommentSection = () => {
     setCommetOn(false)
   }
+  
+
+  // When Someone click on oK Button This Function Runs
+
   const okButtonClicked = (e) => {
     // Getting Id from Post
-    // const postTime = document.getElementById("posttimeid").innerHTML
     const idOfPostFromClick = e.target.parentElement.parentElement.parentElement.id;
     if(idOfPostFromClick){
       console.log(idOfPostFromClick);
-      // dispatch(GetPostLikeAction(idOfPostFromClick));
       dispatch(createOkAction(idOfPostFromClick));
     }
+    setTimeout(getUpdatedPost, 3000);
   }
+
+  
+  // When Someone Send Comment
 
   const commentSendButtonCLicked = () => {
     if(postId){
       console.log(postId);
       console.log(comment);
-      // const data = {
-      //   postId: postId,
-      //   comment: comment
-      // }
-      dispatch(createCommentAction(postId))
+      const data = {
+        postId: postId,
+        comment: comment
+      }
+      dispatch(createCommentAction(data));
       setComment('');
     }
+    setTimeout(getUpdatedPost, 2000);
   }
 
   return (
@@ -88,7 +115,30 @@ const Newsfeed = (props) => {
                     <span onClick={closeCommentSection}><FiX/></span>
                   </div>
                   <div className="comment_section_middle">
-
+                    {
+                      poststate.posts ? 
+                      poststate.posts.map(post => {
+                        // Filtering With the Selected Div
+                        if(post.id === postId){
+                          // Now Mapping the COmments Array
+                          return post.Comments.map(com => {
+                            return(
+                              <div key={com.comment} className="each_comment_div">
+                                <div className="each_comment_div_left">
+                                  <div className="left_profile_pic"><img src={com.userphotoUrl}/></div>
+                                </div>
+                                <div className="each_comment_div_right">
+                                  <label className="comment_user_name">{com.userName}<span> . </span><span>{com.commentTime}</span></label>
+                                  <label className="comment">{com.comment}</label>
+                                </div>
+                              </div>
+                            );
+                          })
+                        }
+                      })
+                      :
+                      null
+                    }
                   </div>
                   <div className="comment_section_bottom">
                     <input
@@ -126,7 +176,7 @@ const Newsfeed = (props) => {
                       <div className="like_and_comment_box">
                           <div className="like_div" onClick={okButtonClicked}>
                             <label><span><FiCheck/></span>ok</label>
-                            <label className="count">{post.Likes.length}</label>
+                            <label className="count"><span> . </span>{post.Likes.length}</label>
                           </div>
                           <div className="comment_div" onClick={comentDivClicked}>
                             <label><span><FiMessageSquare/></span>Comment</label>
@@ -145,6 +195,7 @@ const Newsfeed = (props) => {
           {/* ************************************** */}
           <div className="right-div">
             <div className="sub1-right-div">
+              <label className="create_post_lbl">Create A Post</label>
               <form noValidate autoComplete="off">
                 <TextField
                   id="outlined-basic"
@@ -157,12 +208,17 @@ const Newsfeed = (props) => {
                   rows={6}
                 />
                 <input className="input_file" type="file" onChange={handleImage}/>
+                
                 <Row style={{marginTop: 10}}>
                     <Col md={{ span: 12, offset: 0 }}>
-                      <label className="tandc">
+                      <img id="selected_img" src="https://i.ibb.co/ZVFsg37/default.png" />
+                    </Col>
+                </Row>
+                <Row style={{marginTop: 10}}>
+                    <Col md={{ span: 12, offset: 0 }}>
+                      <label className="tandc1">
                         The post will be seen by all hostel Boarders So think
-                        twice before posting any thing. And Choose Your Image of 
-                        ratio <span>16:9</span>
+                        twice before posting any thing. You Can Include One Image At a Time. <span>Selected Image Will Appear on Top.</span>
                       </label>
                       <button onClick={postCreationForm} className="post_btn">Post</button>
                     </Col>

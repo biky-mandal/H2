@@ -99,8 +99,10 @@ export const UploadPostAction = (post, image) => {
                   postTime: postTime,
                   Likes: firebase.firestore.FieldValue.arrayUnion(user.uid),
                   Comments: firebase.firestore.FieldValue.arrayUnion({
-                    comment: "I have Created the Post",
-                    userId: user.uid
+                    comment: `This Post is Created By ${user.displayName}`,
+                    userphotoUrl: user.photoURL,
+                    userName: user.displayName,
+                    commentTime: postTime
                   })
                 })
                 .then(() => {
@@ -159,22 +161,24 @@ export const createOkAction = (postId) => {
   }
 }
 
-export const createCommentAction = (postId) => {
+export const createCommentAction = (data) => {
   return async dispatch => {
     dispatch({
       type: postConstants.CREATE_COMMENT_REQUEST
     })
-    const user = firebaseApp.auth.currentUser;
+    const user = firebaseApp.auth().currentUser;
     if(user){
-
-      console.log(postId);
+      const commentTime = GetFormattedDate();
+      console.log(data.postId);
       await firebaseApp.firestore()
         .collection('posts')
-        .doc(postId)
+        .doc(data.postId)
         .update({
           Comments: firebase.firestore.FieldValue.arrayUnion({
-            comment: "I have Created the Post",
-            userId: user.uid
+            comment: data.comment,
+            userphotoUrl: user.photoURL,
+            userName: user.displayName,
+            commentTime: commentTime
           })
         }).then(() => {
           const message = "Comment Posted!"

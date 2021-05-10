@@ -93,12 +93,61 @@
 
 .comment_section_middle{
   width: 100%;
-  height: auto;
-  background-color: #7fa7cc;
+  height: 70vh;
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
 }
 .comment_section_middle::-webkit-scrollbar {
   display: none;
+}
+.each_comment_div{
+  width: 100%;
+  height: auto;
+  display: flex;
+  padding: 1vh 1vw;
+  justify-content: space-between;
+}
+.each_comment_div_left{
+  width: 10%;
+  display: flex;
+  justify-content: center;
+}
+.left_profile_pic{
+  width: 3rem;
+  height: 3rem;
+  margin-top: 1vh;
+  background-color: #a0a0a0;
+  border-radius: 50%;
+}
+.left_profile_pic img{
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  border-radius: 50%;
+}
+.each_comment_div_right{
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  padding: 1vh 1vw;
+}
+.comment_user_name{
+  font-family: "Poppins", sans-serif ;
+  font-size: 1rem;
+  color: #224263;
+  font-weight: 500;
+}
+.comment_user_name span, .comment{
+  font-family: "Poppins", sans-serif ;
+  font-size: 0.8rem;
+  color: #5f5f5f;
+  font-weight: 300;
+}
+.comment{
+  font-size: 1rem;
+  color: #224263;
+
 }
 
 .comment_section_bottom{
@@ -150,6 +199,11 @@
   border-radius: 12px;
 }
 
+.create_post_lbl{
+  font-family: "Poppins", sans-serif ;
+  font-size: 1rem;
+}
+
 .inpt-post {
   width: 100%;
   font-family: "Poppins", sans-serif;
@@ -158,9 +212,21 @@
 .input_file {
   margin-top: 1rem;
 }
-.tandc span{
-  color: #0084ff;
-  font-weight: 500;
+.tandc1{
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 1.5rem;
+}
+.tandc1 span{
+  color: #224263;
+}
+#selected_img{
+  width: auto;
+  height: 100px;
+  margin-top: 1rem;
+  background-size: cover;
+  box-shadow: 0px 1px 4px #5f5f5f;
 }
 .post_btn {
   width: 100%;
@@ -170,7 +236,7 @@
   text-align: center;
   outline: none;
   border: none;
-  margin-top: 5rem;
+  margin-top: 2rem;
   background-color: #404b55;
   color: #ffffff;
   border-radius: 5px;
@@ -188,8 +254,8 @@
 }
 .post_top{
   width: 100%;
-  height: 10vh;
-  padding: 1vh 1vw;
+  height: 12vh;
+  padding: 2vh 1vw;
   display: flex;
 }
 .profile_photo_in_feed_div{
@@ -221,12 +287,13 @@
 .post_mid{
   width: 100%;
   height: auto;
-  background-color: #224263;
+  padding: 1vh 1vw;
 }
 .post_mid img{
   width: 100%;
   height: auto;
   background-size: cover;
+  box-shadow: 0px 1px 4px #5f5f5f;
 }
 
 .post_bottom{
@@ -278,7 +345,6 @@
 .like_div:hover span{
   cursor: pointer;
   color: #03b653;
-  margin-right: 1rem;
 }
 
 .comment_div span{
