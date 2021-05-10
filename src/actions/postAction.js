@@ -143,13 +143,11 @@ export const createOkAction = (postId) => {
       .update({
         Likes: firebase.firestore.FieldValue.arrayUnion(user.uid)
       }).then(() => {
-        const message = "Ok! UpVoted."
-        console.log("Liked")
         dispatch({
           type: postConstants.CREATE_OK_SUCCESS,
-          payload: {
-            message : message
-          }
+          // payload: {
+          //   message : message
+          // }
         })
       }).catch((err) => {
         console.log(err);
@@ -180,14 +178,9 @@ export const createCommentAction = (data) => {
             userName: user.displayName,
             commentTime: commentTime
           })
-        }).then(() => {
-          const message = "Comment Posted!"
-          console.log(message);
+        }).then((res) => {
           dispatch({
-            type: postConstants.CREATE_COMMENT_SUCCESS,
-            payload: {
-              message: message
-            }
+            type: postConstants.CREATE_COMMENT_SUCCESS
           })
         }).catch((err) => {
           console.log(err);

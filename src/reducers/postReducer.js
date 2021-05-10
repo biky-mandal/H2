@@ -12,19 +12,22 @@ export default (state = initState, action) => {
       state = {
         ...state,
         loading: true,
+        message: "Fetching..."
       };
       break;
     case postConstants.GET_POST_SUCCESS:
       state = {
           ...state,
           loading: false,
-          posts: action.payload.posts
+          posts: action.payload.posts,
+          message: "Fetching Done..."
       }
       break;
     case postConstants.GET_POST_FAILURE:
       state = {
           ...state,
-          loading: false
+          loading: false,
+          message: "Fetching Failed!"
       }
       break;
     
@@ -32,20 +35,22 @@ export default (state = initState, action) => {
     case postConstants.CREATE_OK_REQUEST:
       state = {
         ...state,
-        loading: true
+        loading: true,
+        message: "Wait a Second!"
       }
       break;
     case postConstants.CREATE_OK_SUCCESS:
       state = {
         ...state,
         loading: false,
-        message: action.payload.message
+        message: "Done!"
       }
       break;
     case postConstants.CREATE_OK_FAILURE:
       state = {
         ...state,
-        loading: false
+        loading: false,
+        message: "Failed!"
       }
       break;
     
@@ -54,20 +59,45 @@ export default (state = initState, action) => {
       case postConstants.CREATE_COMMENT_REQUEST:
         state = {
           ...state,
-          loading: true
+          loading: true,
+          message:"Posting Your Comment..."
+        }
+        break;
+      case postConstants.CREATE_COMMENT_SUCCESS:
+        state = {
+          ...state,
+          loading: false,
+          message: "Comment Posted!"
+        }
+        break;
+      case postConstants.CREATE_COMMENT_FAILURE:
+        state = {
+          ...state,
+          loading: false,
+          message: "Failed!"
+        }
+        break;
+
+      // Creating Posts
+      case postConstants.CREATE_POST_REQUEST:
+        state = {
+          ...state,
+          loading: true,
+          message:"Posting Your Comment..."
         }
         break;
       case postConstants.CREATE_POST_SUCCESS:
         state = {
           ...state,
           loading: false,
-          message: action.payload.message
+          message: "Posted!"
         }
         break;
-      case postConstants.CREATE_COMMENT_FAILURE:
+      case postConstants.CREATE_POST_FAILURE:
         state = {
           ...state,
-          loading: false
+          loading: false,
+          message: "Failed!"
         }
 
   }

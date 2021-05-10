@@ -17,7 +17,7 @@ const Newsfeed = (props) => {
   const [post, setPost] = useState("");
   const [postImage, setPostImage] = useState(null);
   const [commentOn, setCommetOn] = useState(false);
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState(null);
   const [postId, setPostId] = useState();
 
   const poststate = useSelector(state => state.poststate);
@@ -45,6 +45,14 @@ const Newsfeed = (props) => {
         preview.style.display = "block";
     }
   }
+  
+  const showSnackBar = () => {
+    const snackbar = document.querySelector(".snackbar");
+    snackbar.classList.add("show");
+
+    setTimeout(() => snackbar.classList.remove("show"), 3000);
+  }
+
 
   const postCreationForm = (e) => {
     e.preventDefault();
@@ -55,6 +63,8 @@ const Newsfeed = (props) => {
     setPost('');
     setPostImage(null);
     setTimeout(getUpdatedPost, 2000);
+    showSnackBar();
+
   }
 
   const comentDivClicked = (e) => {
@@ -80,6 +90,7 @@ const Newsfeed = (props) => {
       console.log(idOfPostFromClick);
       dispatch(createOkAction(idOfPostFromClick));
     }
+    showSnackBar();
     setTimeout(getUpdatedPost, 3000);
   }
 
@@ -87,23 +98,31 @@ const Newsfeed = (props) => {
   // When Someone Send Comment
 
   const commentSendButtonCLicked = () => {
-    if(postId){
-      console.log(postId);
-      console.log(comment);
+    if(postId && comment){
       const data = {
         postId: postId,
         comment: comment
       }
       dispatch(createCommentAction(data));
       setComment('');
+      showSnackBar();
+      setTimeout(getUpdatedPost, 2000);
+    }else{
+      
     }
-    setTimeout(getUpdatedPost, 2000);
   }
 
+  
   return (
     <Layout>
       <div className="newsfeed_main_div">
         <div className="sub_newsfeed">
+          {/* SnackBar  **********************/}
+          <div className="snackbar">
+            <div>{poststate.message}</div>
+          </div>
+
+          {/* ******************** */}
           <div className="left-div"></div>
           {/* **************************************** */}
           <div className="middle-div">
