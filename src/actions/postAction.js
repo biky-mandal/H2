@@ -1,5 +1,6 @@
 import { firebaseApp } from "../backend/fbConfig";
 import { postConstants } from "../store/constant";
+import firebase from 'firebase';
 
 // FUnction to get the date
 function GetFormattedDate() {
@@ -31,12 +32,15 @@ export const GetPostAction = () => {
       await db
       .collection('posts')
       .orderBy('id', 'desc')
-      .limit(3)
+      // .limit(10)
       .get()
       .then((querySnapshot) => {
         // console.log(querySnapshot.docs.c);
+        // Getting Three Document POST in an array
         const documents = querySnapshot.docs.map(doc => doc.data())
         console.log(documents);
+        // Here I get The posts 
+        // To get The Likes and comments in the Post We Then ,
         dispatch({
           type: postConstants.GET_POST_SUCCESS,
           payload: {
@@ -92,14 +96,23 @@ export const UploadPostAction = (post, image) => {
                   imageUrl : url,
                   post: post,
                   id: timeInMilliSeconds,
-                  postTime: postTime
+                  postTime: postTime,
+                  Likes: firebase.firestore.FieldValue.arrayUnion(user.uid),
+                  Comments: firebase.firestore.FieldValue.arrayUnion({
+                    comment: "I have Created the Post",
+                    userId: user.uid
+                  })
                 })
                 .then(() => {
                   dispatch({
-                      type: postConstants.CREATE_POST_SUCCESS
+                      type: postConstants.CREATE_POST_SUCCESS,
+                      payload: {
+                        message: "Post Created!"
+                      }
                   })
                   console.log("Post Created!")
-                }).catch(() => {
+                }).catch((err) => {
+                  console.log(err);
                   dispatch({
                       type: postConstants.CREATE_POST_FAILURE
                   })
@@ -113,23 +126,71 @@ export const UploadPostAction = (post, image) => {
 };
 
 
+
 export const createOkAction = (postId) => {
   return async dispatch => {
-    const timeInMilliSeconds = new Date().getTime().toString();
+    dispatch({
+      type: postConstants.CREATE_OK_REQUEST
+    })
     const user = firebaseApp.auth().currentUser
-    console.log(postId)
+    // console.log(postId)
     if(user){
       await firebaseApp.firestore()
       .collection('posts')
       .doc(postId)
-      .collection('likes')
-      .doc(timeInMilliSeconds)
-      .set({
-        userId: user.uid,
-        id: timeInMilliSeconds
+      .update({
+        Likes: firebase.firestore.FieldValue.arrayUnion(user.uid)
       }).then(() => {
+        const message = "Ok! UpVoted."
         console.log("Liked")
+        dispatch({
+          type: postConstants.CREATE_OK_SUCCESS,
+          payload: {
+            message : message
+          }
+        })
+      }).catch((err) => {
+        console.log(err);
+        dispatch({
+          type: postConstants.CREATE_OK_FAILURE
+        })
       })
+    }
+  }
+}
+
+export const createCommentAction = (postId) => {
+  return async dispatch => {
+    dispatch({
+      type: postConstants.CREATE_COMMENT_REQUEST
+    })
+    const user = firebaseApp.auth.currentUser;
+    if(user){
+
+      console.log(postId);
+      await firebaseApp.firestore()
+        .collection('posts')
+        .doc(postId)
+        .update({
+          Comments: firebase.firestore.FieldValue.arrayUnion({
+            comment: "I have Created the Post",
+            userId: user.uid
+          })
+        }).then(() => {
+          const message = "Comment Posted!"
+          console.log(message);
+          dispatch({
+            type: postConstants.CREATE_COMMENT_SUCCESS,
+            payload: {
+              message: message
+            }
+          })
+        }).catch((err) => {
+          console.log(err);
+          dispatch({
+            type: postConstants.CREATE_COMMENT_FAILURE
+          })
+        })
     }
   }
 }

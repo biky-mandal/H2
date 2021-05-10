@@ -4,8 +4,7 @@ import { TextField } from "@material-ui/core";
 import "./style.css";
 import { Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { UploadPostAction, createOkAction } from "../../actions/postAction";
-import img from '../../Images/169.jpg';
+import { UploadPostAction, createOkAction, createCommentAction } from "../../actions/postAction";
 import {FiCheck, FiMessageSquare, FiX, FiSend} from 'react-icons/fi';
 
 /**
@@ -19,6 +18,7 @@ const Newsfeed = (props) => {
   const [postImage, setPostImage] = useState(null);
   const [commentOn, setCommetOn] = useState(false);
   const [comment, setComment] = useState('');
+  const [postId, setPostId] = useState();
 
   const poststate = useSelector(state => state.poststate);
 
@@ -38,8 +38,12 @@ const Newsfeed = (props) => {
     setPostImage(null);
   }
 
-  const comentDivClicked = () => {
-    setCommetOn(true)
+  const comentDivClicked = (e) => {
+    setCommetOn(true);
+    const idOfPostFromClick = e.target.parentElement.parentElement.parentElement.id;
+    console.log(idOfPostFromClick);
+    // Setting The Id Of The Post For Future Reference.
+    setPostId(idOfPostFromClick)
   }
 
   const closeCommentSection = () => {
@@ -51,7 +55,21 @@ const Newsfeed = (props) => {
     const idOfPostFromClick = e.target.parentElement.parentElement.parentElement.id;
     if(idOfPostFromClick){
       console.log(idOfPostFromClick);
+      // dispatch(GetPostLikeAction(idOfPostFromClick));
       dispatch(createOkAction(idOfPostFromClick));
+    }
+  }
+
+  const commentSendButtonCLicked = () => {
+    if(postId){
+      console.log(postId);
+      console.log(comment);
+      // const data = {
+      //   postId: postId,
+      //   comment: comment
+      // }
+      dispatch(createCommentAction(postId))
+      setComment('');
     }
   }
 
@@ -62,10 +80,6 @@ const Newsfeed = (props) => {
           <div className="left-div"></div>
           {/* **************************************** */}
           <div className="middle-div">
-            <div className="post-div-main-top">
-              <label>All Updated POST will Appear Here.</label>
-            </div>
-
             {
               commentOn ? 
                 <div id="comment-box" className="comment_section_div">
@@ -84,7 +98,7 @@ const Newsfeed = (props) => {
                       value={comment}
                       onChange={(e) => setComment(e.target.value)}
                     />
-                    <span><FiSend/></span>
+                    <span onClick={commentSendButtonCLicked}><FiSend/></span>
                   </div>
                 </div>
               :
@@ -112,16 +126,20 @@ const Newsfeed = (props) => {
                       <div className="like_and_comment_box">
                           <div className="like_div" onClick={okButtonClicked}>
                             <label><span><FiCheck/></span>ok</label>
-                            <label className="count">123</label>
+                            <label className="count">{post.Likes.length}</label>
                           </div>
                           <div className="comment_div" onClick={comentDivClicked}>
                             <label><span><FiMessageSquare/></span>Comment</label>
-                            <label className="count">26</label>
+                            <label className="count">{post.Comments.length}</label>
                           </div>
                       </div>
                     </div>
                   );
-                }) : <label>Loading...</label>
+                }) 
+                :             
+                <div className="post-div-main-top">
+                  <label>All Updated POST will Appear Here.</label>
+                </div>
             }
           </div>
           {/* ************************************** */}
