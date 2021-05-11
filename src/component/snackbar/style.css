@@ -1,0 +1,26 @@
+.snackbar{
+    position: fixed;
+    bottom: 10px;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 100;
+    transition: left 0.5s, opacity 0.5s;
+    border-radius: 12px;
+  }
+  .snackbar > div{
+    background-color: #333;
+    color: #fff;
+    min-width: 150px;
+    padding: 15px 30px;
+    border-radius: 12px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .snackbar.show{
+    left: 10px;
+    opacity: 1;
+    pointer-events: all;
+  }

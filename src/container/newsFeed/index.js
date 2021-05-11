@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Layout from "../../component/layout";
 import { TextField } from "@material-ui/core";
 import "./style.css";
@@ -6,6 +6,7 @@ import { Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { UploadPostAction, createOkAction, createCommentAction, GetPostAction } from "../../actions/postAction";
 import {FiCheck, FiMessageSquare, FiX, FiSend} from 'react-icons/fi';
+import Snackbar from '../../component/snackbar';
 
 /**
  * @author
@@ -14,6 +15,9 @@ import {FiCheck, FiMessageSquare, FiX, FiSend} from 'react-icons/fi';
 
 const Newsfeed = (props) => {
   const dispatch = useDispatch();
+
+  const childref = useRef();
+
   const [post, setPost] = useState("");
   const [postImage, setPostImage] = useState(null);
   const [commentOn, setCommetOn] = useState(false);
@@ -36,6 +40,10 @@ const Newsfeed = (props) => {
 
   }, []);
 
+  const showSnack = () => {
+    childref.current.showSnackBar()
+  }
+
   const handleImage = (e) => {
     if(e.target.files[0]){
         setPostImage(e.target.files[0]);
@@ -45,14 +53,6 @@ const Newsfeed = (props) => {
         preview.style.display = "block";
     }
   }
-  
-  const showSnackBar = () => {
-    const snackbar = document.querySelector(".snackbar");
-    snackbar.classList.add("show");
-
-    setTimeout(() => snackbar.classList.remove("show"), 3000);
-  }
-
 
   const postCreationForm = (e) => {
     e.preventDefault();
@@ -63,7 +63,7 @@ const Newsfeed = (props) => {
     setPost('');
     setPostImage(null);
     setTimeout(getUpdatedPost, 2000);
-    showSnackBar();
+    showSnack();
 
   }
 
@@ -90,7 +90,7 @@ const Newsfeed = (props) => {
       console.log(idOfPostFromClick);
       dispatch(createOkAction(idOfPostFromClick));
     }
-    showSnackBar();
+    showSnack();
     setTimeout(getUpdatedPost, 3000);
   }
 
@@ -105,7 +105,7 @@ const Newsfeed = (props) => {
       }
       dispatch(createCommentAction(data));
       setComment('');
-      showSnackBar();
+      showSnack();
       setTimeout(getUpdatedPost, 2000);
     }else{
       
@@ -118,9 +118,10 @@ const Newsfeed = (props) => {
       <div className="newsfeed_main_div">
         <div className="sub_newsfeed">
           {/* SnackBar  **********************/}
-          <div className="snackbar">
+          {/* <div className="snackbar">
             <div>{poststate.message}</div>
-          </div>
+          </div> */}
+          <Snackbar ref={childref} message={poststate.message}/>
 
           {/* ******************** */}
           <div className="left-div"></div>
