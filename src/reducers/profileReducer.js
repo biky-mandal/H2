@@ -17,7 +17,8 @@ const initState = {
     // twitterLink: null,
     userDetails: null,
     loading: false,
-    uploading: false
+    uploading: false,
+    message: null
 }
 
 export default (state = initState, action) => {
@@ -25,41 +26,48 @@ export default (state = initState, action) => {
         case profileConstants.GET_USER_PROFILE_REQUEST:
             state = {
                 ...state,
-                loading: true
+                loading: true,
+                message: "Fetching..."
             }
             break;
         case profileConstants.GET_USER_PROFILE_SUCCESS:
             state = {
                 ...state,
                 userDetails: action.payload.userDetails,
-                loading: false
+                loading: false,
+                message: "Updated!"
             }
             break;
         case profileConstants.GET_USER_PROFILE_FAILURE:
             state={
                 ...state,
-                loading: false
+                loading: false,
+                message: "Failed!"
             }
             break;
+
         case profileConstants.UPLOAD_DATA_REQUEST:
             state={
                 ...state,
                 uploading: true,
-                loading: true
+                loading: true,
+                message: "Uploading.."
             }
             break;
         case profileConstants.UPLOAD_DATA_SUCCESS:
             state={
                 ...state,
                 uploading: false,
-                loading: false
+                loading: false,
+                message: "Uploaded!"
             }
             break;
         case profileConstants.UPLOAD_DATA_FAILURE:
             state={
                 ...state,
                 uploading: false,
-                loading: false
+                loading: false,
+                message: "Failed!"
             }
             break;
     }

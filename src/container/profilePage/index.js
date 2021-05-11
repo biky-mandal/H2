@@ -10,6 +10,7 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { firebaseApp } from '../../backend/fbConfig';
 import { GetProfileAction, UploadDataAction, UploadProfilePictureAction, UploadYearAction } from '../../actions/profileAction';
 import Loader from 'react-loader-spinner';
+import Snackbar from '../../component/snackbar';
 
 
 /**
@@ -22,7 +23,7 @@ const Profilepage = (props) => {
     const profile = useSelector(state => state.profile);
 
     const dispatch = useDispatch()
-    // const childRef = useRef();
+    const childRef = useRef();
 
     const [isNormalInput, setNormalInput] = useState(false)
     const [isSelectDropList, setIsSelectDropList] = useState(false);
@@ -61,6 +62,22 @@ const Profilepage = (props) => {
 
     const [profileImage, setProfileImage] = useState(null);
 
+    useEffect(() => {
+
+    }, [profile]);
+
+
+    const getUpdatedProfile = () => {
+        dispatch(GetProfileAction());
+    }
+
+
+    // Showing Snack Bar
+    const showSnack = () => {
+        childRef.current.showSnackBar()
+    }
+
+
     const handleImage = (e) => {
         if(e.target.files[0]){
             setProfileImage(e.target.files[0]);
@@ -69,9 +86,8 @@ const Profilepage = (props) => {
     const uploadProfileImage = () => {
         setOpen(false)
         dispatch(UploadProfilePictureAction(profileImage));
-        if(auth.loading){
-            return <Loader type="TailSpin" color="#00BFFF" height={80} width={80} />
-        }
+        showSnack();
+        setTimeout(getUpdatedProfile, 2000);
     }
     // For Modal
     // OM => Open Modal
@@ -240,18 +256,18 @@ const Profilepage = (props) => {
             dispatch(GetProfileAction());
         }
         closeModal();
-    }
+        // To display Snackabar
+        showSnack();
 
-    const reFatch = () => {
-        if(profile.userDetails){
-            dispatch(GetProfileAction());
-        }
+        // It Will refersh The Post
+        setTimeout(getUpdatedProfile, 2000);
     }
 
     return (
         <Layout>
             <div className="profile-div">
                 {/* Modal Start Here */}
+                <Snackbar ref={childRef} message={profile.message}/>
                 {
                     <Modal className="modal" show={open} onHide={closeModal} animation={true}>
                         <Modal.Body className="product-modal-body">
@@ -472,10 +488,10 @@ const Profilepage = (props) => {
                                 `${profile.userDetails.entryYear} to ${profile.userDetails.passOutYear}` : null
                             } 
                         />
-                        <DetailSection reFatch={reFatch} trigger={omHomeAddress} heading="Home Address" body={profile.userDetails ? profile.userDetails.homeAddress : null} />
-                        <DetailSection reFatch={reFatch} trigger={omCurrentAddress} heading="Current Address" body={profile.userDetails ? profile.userDetails.currentAddress : null} />
-                        <DetailSection reFatch={reFatch} trigger={omOccupation} heading="Occupation" body={profile.userDetails ? profile.userDetails.occupation : null} />
-                        <DetailSection reFatch={reFatch} trigger={omPassoutRoom} heading="PassOut Year Room no." body={profile.userDetails ? profile.userDetails.roomNo : null} />
+                        <DetailSection reFatch={getUpdatedProfile} trigger={omHomeAddress} heading="Home Address" body={profile.userDetails ? profile.userDetails.homeAddress : null} />
+                        <DetailSection reFatch={getUpdatedProfile} trigger={omCurrentAddress} heading="Current Address" body={profile.userDetails ? profile.userDetails.currentAddress : null} />
+                        <DetailSection reFatch={getUpdatedProfile} trigger={omOccupation} heading="Occupation" body={profile.userDetails ? profile.userDetails.occupation : null} />
+                        <DetailSection reFatch={getUpdatedProfile} trigger={omPassoutRoom} heading="PassOut Year Room no." body={profile.userDetails ? profile.userDetails.roomNo : null} />
                     </div>
                 </div>
             </div>
