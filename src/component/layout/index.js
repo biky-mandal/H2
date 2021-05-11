@@ -9,7 +9,7 @@ import Header from '../header'
 const Layout = (props) => {
     return (
         <>
-            <Header/>
+            <Header color={props.color}/>
             {
                 props.children
             }

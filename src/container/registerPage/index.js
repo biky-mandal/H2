@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Row,Col, Container, Form } from 'react-bootstrap';
 import Layout from '../../component/layout';
-import Input from '../../component/UI';
-import loginbg from '../../Images/login1.png';
 import './style.css';
 import {RegisterAction} from '../../actions/authAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import {FiX} from 'react-icons/fi';
+import {FcGoogle} from 'react-icons/fc';
+import {  LoginWithGoogleAction } from '../../actions/authAction';
 
 
 /**
@@ -33,18 +32,26 @@ const Registerpage = (props) => {
         e.preventDefault();
         dispatch(RegisterAction(userEmail, userPassword, userName));
     }
+    const googleLogin = (e) => {
+        e.preventDefault();
+        dispatch(LoginWithGoogleAction());
+    };
 
     return (
         <Layout>
                 <div className="register-bg">
-                    <div className="register_top_div">
-                            <img src={loginbg} alt="Bg"/>
-                        <div className="register_float_div">
+                    <div className="register_float_div">
+                        <div className="left_div">
                             <label className="reister-lbl">
                                 Register
                             </label>
+                            <label className="resister_desc">
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                            </label>
+                        </div>
+                        <div className="right_div">
                             <Container>
-                                <Row style={{  }}>
+                                <Row style={{ }}>
                                     <Col md={{ span: 10, offset: 1 }}>
                                         <ValidatorForm className="form-reg" useref="form" onSubmit={registerUser}>
                                             <TextValidator
@@ -77,7 +84,7 @@ const Registerpage = (props) => {
                                                 errorMessages={['this field is required', 'Minimum Length should be 8']}
                                                 onChange={(e) => setUserPassword(e.target.value)}
                                             />
-                                            <label className="tandc">
+                                            <label className="tandc tandcr">
                                                 By Registering to this site you accept the terms 
                                                 and privacy-policy of this page.
                                             </label>
@@ -86,6 +93,9 @@ const Registerpage = (props) => {
                                                 Register
                                             </button>
                                         </ValidatorForm>
+                                        <button onClick={googleLogin} className="google-login-btn rglb">
+                                            <FcGoogle /> <span>Login With Google</span>
+                                        </button>
                                     </Col>
                                 </Row>
                             </Container>

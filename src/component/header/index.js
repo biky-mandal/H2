@@ -25,17 +25,14 @@ const Header = (props) => {
 
     const renderLoggedInLinks = () => {
         return(
-            <NavDropdown className="profile-drop-div navtags link2" title={displayName ? displayName : 'User'} id="collasible-nav-dropdown">
+            <>
                 <li className="nav-item">
-                    <NavLink to="profile" className="nav-link drop-lbl navtags"><span><FiUserCheck /></span>Profile</NavLink>
+                    <NavLink to="profile" className="nav-link navtags profile__btn">{displayName ? displayName : 'User'}</NavLink>
                 </li>
                 <li className="nav-item">
-                    <NavLink to="profile" className="nav-link drop-lbl navtags"><span><FiUsers /></span>BatchMates</NavLink>
+                    <NavLink to="/" onClick={logoutFunc} className="nav-link navtags"><span></span>LogOut</NavLink>
                 </li>
-                <li className="nav-item">
-                    <NavLink to="/" onClick={logoutFunc} className="nav-link drop-lbl navtags"><span><FiLogOut /></span>LogOut</NavLink>
-                </li>
-            </NavDropdown>
+            </>
         );
     }
 
@@ -53,38 +50,23 @@ const Header = (props) => {
     }
     return (
         <div className="header">
-            <Navbar className="navbar-bg" collapseOnSelect expand="md" bg="dark" variant="dark">
+            <Navbar className="navbar-bg" collapseOnSelect expand="md" variant="dark">
                 <Navbar.Brand href="/" className="navlogo">H2.</Navbar.Brand>
                 <Navbar.Toggle className="custom-toggler" aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="mr-auto">
+                    <Nav className="ml-auto">
                         <li className="nav-item">
                             <NavLink to="" className="nav-link link2 navtags" >Home</NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink to="newsfeed" className="nav-link link2 navtags" >feed</NavLink>
                         </li>
-                        <NavDropdown className="drop-div navtags link2" title="Academics" id="collasible-nav-dropdown">
-                            <li className="nav-item">
-                                <NavLink to="note" className="nav-link drop-lbl navtags"><span><FiClipboard /></span>Notes</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink to="book" className="nav-link drop-lbl navtags"><span><FiBook /></span>Books</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink to="syllabus" className="nav-link drop-lbl navtags"><span><FiBookOpen /></span>Syllabus</NavLink>
-                            </li>
-                        </NavDropdown>
-                        <NavDropdown className="drop-div navtags link2" title="GOIN" id="collasible-nav-dropdown">
-                            <li className="nav-item">
-                                <NavLink to="contact" className="nav-link drop-lbl navtags"><span><FiLogIn /></span>Contact</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink to="about" className="nav-link drop-lbl navtags"><span><FiUserPlus /></span>About</NavLink>
-                            </li>
-                        </NavDropdown>
-                    </Nav>
-                    <Nav className="ml-auto">
+                        <li className="nav-item">
+                            <NavLink to="newsfeed" className="nav-link link2 navtags" >Academics</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink to="newsfeed" className="nav-link link2 navtags" >About</NavLink>
+                        </li>
                         {
                             token ? 
                                 renderLoggedInLinks()

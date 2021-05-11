@@ -3,14 +3,11 @@ import {Route, Switch} from 'react-router-dom';
 import Loginpage from './container/loginPage';
 import Registerpage from './container/registerPage';
 import Aboutpage from './container/aboutPage';
-import Contactpage from './container/contactPage';
 import Homepage from './container/homePage';
 import Newsfeed from './container/newsFeed';
 import Profilepage from './container/profilePage';
-import NotePage from './container/notespage';
-import BookPage from './container/booksPage';
-import SyllabusPage from './container/syllabusPage';
 import BatchPage from './container/batchPage';
+import Academic from './container/academic';
 
 
 import PrivateRoute from './component/hoc';
@@ -46,12 +43,9 @@ function App() {
         
         <PrivateRoute path="/newsfeed" component={Newsfeed}/>
 
-        <PrivateRoute path="/note" component={NotePage}/>
-        <PrivateRoute path="/book" component={BookPage}/>
-        <PrivateRoute path="/syllabus" component={SyllabusPage}/>
+        <PrivateRoute path="/academic" component={Academic}/>
 
         <PrivateRoute path="/about" component={Aboutpage}/>
-        <PrivateRoute path="/contact" component={Contactpage}/>
 
         <PrivateRoute path="/profile" component={Profilepage}/>
         <PrivateRoute path="/batchmate" component={BatchPage}/>

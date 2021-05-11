@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Container, Form } from "react-bootstrap";
 import Layout from "../../component/layout";
-import loginbg from "../../Images/login1.png";
 import "./style.css";
 import { FcGoogle } from "react-icons/fc";
 import {
@@ -55,11 +54,16 @@ const Loginpage = (props) => {
   return (
     <Layout>
       <div className="register-bg">
-        <div className="register_top_div">
-          <img src={loginbg} alt="Bg" />
-          {forgot ? (
-            <div className="register_float_div">
-              <label className="reister-lbl">Reset</label>
+        <div className="register_float_div">
+        <div className="left_div left_login_div">
+        <label className="reister-lbl">Login</label>
+          <label className="resister_desc">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+          </label>
+        </div>
+        <div className="right_div">
+        {forgot ? (
+            <>
               <Container>
                 <Row style={{}}>
                   <Col md={{ span: 10, offset: 1 }}>
@@ -115,10 +119,9 @@ const Loginpage = (props) => {
                   </Col>
                 </Row>
               </Container>
-            </div>
+              </>
           ) : (
-            <div className="register_float_div">
-              <label className="reister-lbl">Login</label>
+            <>
               <Container>
                 <Row style={{}}>
                   <Col md={{ span: 10, offset: 1 }}>
@@ -172,8 +175,9 @@ const Loginpage = (props) => {
                   </Col>
                 </Row>
               </Container>
-            </div>
+            </>
           )}
+        </div>
         </div>
       </div>
     </Layout>

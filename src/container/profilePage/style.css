@@ -1,12 +1,10 @@
 .profile-div{
     position: relative;
     width: 100%;
-    height: 90vh;
+    height: 100vh;
     background-color: #FAFCFE;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 5%;
+    padding: 15vh 5%;
 }
 
 .profile_left_div{

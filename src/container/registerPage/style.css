@@ -1,40 +1,71 @@
 .register-bg{
     width: 100%;
-    height: 150vh;
-    background-color:#20538d;
+    height: 100vh;
+    background-color:#ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.register_top_div{
-    position: relative;
-    display: flex;
-}
-.register_top_div img{
-    width: 100%;
-    height: auto;
-}
 .register_float_div{
-    position: absolute;
-    width: 25vw;
-    height: 90vh;
-    right: 5rem;
+    width: 50vw;
+    height: 70vh;
     background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     box-shadow: 0px 2px 6px rgba(122, 128, 133, 0.431) ;
+    border-radius: 5px;
 }
+.left_div, .right_div{
+    width: 50%;
+    height: 100%;
+}
+.left_div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #404b55;
+    border-radius: 5px 0 360px 5px;
+    padding: 0 3rem;
+}
+.right_div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 5px;
+}
+
 .input-field{
-    margin-bottom: 01rem !important;
+    width: 100%;
+    margin-bottom: 1rem !important;
 }
 .reister-lbl{
-    margin-top: 1.5rem;
-    margin-left: 2.5rem;
+    text-align: center;
     font-family: 'Poppins', sans-serif;
     font-size: 1.8rem;
-    color: #404b55;
+    color: #fff;
+    margin-top: 4rem;
+}
+.resister_desc{
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    color: #f3f3f3;
+}
+
+.form-reg{
+    width: 100%;
 }
 .tandc{
     font-family: 'Poppins', sans-serif;
     font-size: 0.7rem;
     text-align: center;
     margin-top: 3rem;
+}
+.tandcr{
+    margin-top: 1rem;
 }
 .register-btn{
     font-family: 'Poppins', sans-serif;
@@ -48,6 +79,9 @@
     background-color: #404b55 ;
     color: #ffffff;
     border-radius: 5px;
+}
+.rglb{
+    margin-top: 1rem;
 }
 .cross-btn{
     position: absolute;

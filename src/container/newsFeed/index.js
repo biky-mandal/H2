@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { UploadPostAction, createOkAction, createCommentAction, GetPostAction } from "../../actions/postAction";
 import {FiCheck, FiMessageSquare, FiX, FiSend} from 'react-icons/fi';
 import Snackbar from '../../component/snackbar';
+import Chatbox from "../../component/chatbox";
 
 /**
  * @author
@@ -23,6 +24,7 @@ const Newsfeed = (props) => {
   const [commentOn, setCommetOn] = useState(false);
   const [comment, setComment] = useState(null);
   const [postId, setPostId] = useState();
+  const [chat, setChat] = useState(null);
 
   const poststate = useSelector(state => state.poststate);
 
@@ -114,7 +116,7 @@ const Newsfeed = (props) => {
 
   
   return (
-    <Layout>
+    <Layout color="#222222">
       <div className="newsfeed_main_div">
         <div className="sub_newsfeed">
           {/* SnackBar  **********************/}
@@ -124,7 +126,9 @@ const Newsfeed = (props) => {
           <Snackbar ref={childref} message={poststate.message}/>
 
           {/* ******************** */}
-          <div className="left-div"></div>
+          <div className="left-div">
+            <Chatbox/>
+          </div>
           {/* **************************************** */}
           <div className="middle-div">
             {
