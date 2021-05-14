@@ -62,10 +62,10 @@ const Header = (props) => {
                             <NavLink to="newsfeed" className="nav-link link2 navtags" >feed</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink to="newsfeed" className="nav-link link2 navtags" >Academics</NavLink>
+                            <NavLink to="academic" className="nav-link link2 navtags" >Academics</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink to="newsfeed" className="nav-link link2 navtags" >About</NavLink>
+                            <NavLink to="about" className="nav-link link2 navtags" >About</NavLink>
                         </li>
                         {
                             token ? 
