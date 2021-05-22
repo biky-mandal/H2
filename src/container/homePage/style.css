@@ -4,7 +4,7 @@ body::-webkit-scrollbar {
 }
 
 .wrapper{         
-    height: 300vh;
+    height: 500vh;
     display: flex;
     flex-direction: column;
     align-items: center; 
@@ -59,6 +59,60 @@ body::-webkit-scrollbar {
     border-radius: 4px;
     background-color: #fa6400;
     box-shadow: 0 8px 35px -5px rgb(250 100 0 / 60%);
+}
+.about_us_in_home:hover{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+._div1, ._div2{
+    width: 100%;
+    height: 80vh;
+    margin-top: 20vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.left_div1{
+    width: 40%;
+    height: 100%;
+    padding-left: 10%;
+}
+
+.right_div1{
+    width: 50%;
+    height: 100%;
+    background-color: rgb(148, 148, 148);
+    border-radius: 7rem 0 0 25rem;
+    overflow: hidden;
+    background-size: cover;
+    box-shadow: 0px 8px 35px rgba(166, 171, 175, 0.431);
+}
+.right_div1 img{
+    width: auto;
+    height: 100%;
+}
+
+._div2{
+    margin-top: 30vh;
+}
+
+.left_div2{
+    width: 50%;
+    height: 100%;
+    background-color: azure;
+    border-radius: 0 7rem 25rem 0;
+    background-size: cover;
+    overflow: hidden;
+    box-shadow: 0px 8px 35px rgba(166, 171, 175, 0.431);
+}
+.left_div2 img{
+    width: auto;
+    height: 100%;
+}
+.right_div2{
+    width: 40%;
+    height: 100%;
 }
 
 .Short_Card_Div{
@@ -128,40 +182,10 @@ body::-webkit-scrollbar {
     text-decoration: underline;
 }
 .Quicbar{
-    width: 60%;
-    height: 40vh;
-    box-shadow: 0px 2px 6px rgba(122, 128, 133, 0.431) ;
-    margin-top: 30vh;
-    background-color: #fa6400;
-}
-/* .home_image_div{
     width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30vh;
-    background-image: url(../../Images/Vector\ 1.svg);
-    background-size: cover;
-}
-
-.bg_frame{
-    width: 50%;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1vh 1vh;
-    background-color: #fff;
+    height: 80vh;
     box-shadow: 0px 2px 6px rgba(122, 128, 133, 0.431) ;
+    margin-top: 20vh;
+    background-color: #514d68;
 }
-.bg_frame img{
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-}
-.content_div1{
-    width: 50%;
-    height: 100%;
-} */
 

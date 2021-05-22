@@ -6,6 +6,7 @@ import webbg1 from '../../Images/desktopbg1.jpeg';
 import p1 from '../../Images/post1.png';
 import p2 from '../../Images/post2.png';
 import p3 from '../../Images/post3.png';
+import p4 from '../../Images/phonebg1.jpeg'
 import {FiArrowRight} from 'react-icons/fi'
 import { NavLink } from 'react-router-dom';
 
@@ -34,8 +35,43 @@ const Homepage = (props) => {
                         sed do eiusmod tempor incididunt ut labore et dolore magna 
                         aliqua.
                     </label>
-                    <button className="about_us_in_home">Know More</button>
+                    <NavLink to="profile" className="about_us_in_home">Update Profile</NavLink>
                 </div>
+                <div className="_div1">
+                    <div className="left_div1">
+                        <label className="card_header">Hostel</label>
+                        <label className="card_desc">
+                            Know more about the current Situation of the Hostel.
+                        </label>
+                        <NavLink className="go_in_link" to="profile">know more<span><FiArrowRight/></span></NavLink>
+                    </div>
+                    <div className="right_div1">
+                        <img src={p1} alt="p1"/>
+                    </div>
+                </div>
+
+                <div className="_div2">
+                    <div className="left_div2">
+                        <img src={p3} alt="p3"/>
+                    </div>
+                    <div className="right_div2">
+                        <label className="ldv_h_l"></label>
+                    </div>
+                </div>
+
+                <div className="_div1">
+                    <div className="left_div1">
+                        <label className="card_header">Batchmates</label>
+                        <label className="card_desc">
+                            Find Out Your Batchmates and help us to maintain record of all Hostel Boarders
+                        </label>
+                        <NavLink className="go_in_link" to="profile">find your batchmates<span><FiArrowRight/></span></NavLink>
+                    </div>
+                    <div className="right_div1">
+                        <img src={p2} alt="p2"/>
+                    </div>
+                </div>
+
                 <div className="Short_Card_Div">
                     <div className="card">
                         <div className="card_top_div">
@@ -80,14 +116,7 @@ const Homepage = (props) => {
                 <div className="Quicbar">
 
                 </div>
-                {/* <div className="home_image_div">
-                        <div className="bg_frame">
-                            <img src={webbg1} alt="bg1"/>
-                        </div>
-                        <div className="content_div1">
 
-                        </div>
-                </div> */}
             </div>
         </Layout>
     )
