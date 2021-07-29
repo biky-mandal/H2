@@ -62,7 +62,7 @@ const Header = (props) => {
                             <NavLink to="newsfeed" className="nav-link link2 navtags" >feed</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink to="academic" className="nav-link link2 navtags" >Academics</NavLink>
+                            <NavLink to="archive" className="nav-link link2 navtags" >Archive</NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink to="about" className="nav-link link2 navtags" >About</NavLink>

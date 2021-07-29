@@ -7,7 +7,7 @@ import Homepage from './container/homePage';
 import Newsfeed from './container/newsFeed';
 import Profilepage from './container/profilePage';
 import BatchPage from './container/batchPage';
-import Academic from './container/academic';
+import Academic from './container/archive';
 
 
 import PrivateRoute from './component/hoc';
@@ -43,7 +43,7 @@ function App() {
         
         <PrivateRoute path="/newsfeed" component={Newsfeed}/>
 
-        <PrivateRoute path="/academic" component={Academic}/>
+        <PrivateRoute path="/archive" component={Academic}/>
 
         <PrivateRoute path="/about" component={Aboutpage}/>
 
