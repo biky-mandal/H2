@@ -1,0 +1,45 @@
+.archive_main_div{
+    width: 100%;
+    height: 100vh;
+    padding-top: 10vh;
+}
+
+.archive_sub_main_div{
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 7vw;
+    gap: 1rem;
+}
+
+.tabs_Item{
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border: 1px solid #120E43;
+    color: #120E43;
+    border-radius: 5px;
+}
+
+[active='Gallery']{
+    background-color: #120E43;
+    color: #fff;
+}
+[active='Video']{
+    background-color: #120E43;
+    color: #fff;
+}
+[active='Achievement']{
+    background-color: #120E43;
+    color: #fff;
+}
+
+
+.main_tabs_div{
+    width: 100%;
+    min-height: calc(100% - 3rem);
+    padding: 2vh 7vw;
+}
